@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  mysql_db:
+    image: mysql:8.4
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # 🔥 Defina a mesma senha do .env
+      MYSQL_DATABASE: automation_alcance
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
+
+  fastapi_app:
+    build: .
+    container_name: fastapi_app
+    restart: always
+    depends_on:
+      - mysql_db
+      - prometheus
+    environment:
+      DATABASE_URL: mysql+asyncmy://root:rootpassword@mysql_db:3306/automation_alcance  # 🔥 Atualizado
+    ports:
+      - "8000:8000"
+    networks:
+      - app_network
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: always
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - app_network
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # 🔥 Senha do admin do Grafana
+    depends_on:
+      - prometheus
+    networks:
+      - app_network
+
+volumes:
+  mysql_data:
+
+networks:
+  app_network:

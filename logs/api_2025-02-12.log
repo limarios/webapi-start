@@ -1,0 +1,327 @@
+2025-02-12 08:38:16,200 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 08:38:16,202 - [INFO] - Resposta: 200
+2025-02-12 08:38:16,582 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 08:38:16,691 - [INFO] - Resposta: 200
+2025-02-12 08:38:22,559 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 08:38:22,880 - [INFO] - Resposta: 200
+2025-02-12 08:53:13,851 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 08:53:13,951 - [INFO] - SELECT DATABASE()
+2025-02-12 08:53:13,953 - [INFO] - [raw sql] ()
+2025-02-12 08:53:13,957 - [INFO] - SELECT @@sql_mode
+2025-02-12 08:53:13,958 - [INFO] - [raw sql] ()
+2025-02-12 08:53:13,967 - [INFO] - SELECT @@lower_case_table_names
+2025-02-12 08:53:13,968 - [INFO] - [raw sql] ()
+2025-02-12 08:53:13,971 - [INFO] - BEGIN (implicit)
+2025-02-12 08:53:13,975 - [INFO] - SELECT 1
+2025-02-12 08:53:13,978 - [INFO] - [generated in 0.00176s] ()
+2025-02-12 08:53:13,989 - [INFO] - ROLLBACK
+2025-02-12 08:53:13,993 - [INFO] - Resposta: 200
+2025-02-12 08:53:49,880 - [INFO] - Recebendo requisição: POST http://127.0.0.1:8000/api/v1/auth/token
+2025-02-12 08:53:49,893 - [INFO] - Buscando usuário: admin
+2025-02-12 08:53:49,895 - [INFO] - BEGIN (implicit)
+2025-02-12 08:53:49,933 - [INFO] - SELECT user.id, user.nome, user.email, user.senha, user.login, user.grupo, user.telefone, user.cargo, user.setor, user.ativo 
+FROM user 
+WHERE user.login = %s
+2025-02-12 08:53:49,936 - [INFO] - [generated in 0.00237s] ('admin',)
+2025-02-12 08:53:49,946 - [INFO] - Usuário encontrado: admin
+2025-02-12 08:53:50,461 - [INFO] - ROLLBACK
+2025-02-12 08:53:50,465 - [INFO] - Resposta: 200
+2025-02-12 09:02:05,729 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/
+2025-02-12 09:02:05,753 - [INFO] - Resposta: 200
+2025-02-12 09:04:39,962 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:04:39,964 - [INFO] - Resposta: 200
+2025-02-12 09:04:40,250 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:04:40,403 - [INFO] - Resposta: 200
+2025-02-12 09:04:47,046 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:04:47,068 - [INFO] - SELECT DATABASE()
+2025-02-12 09:04:47,069 - [INFO] - [raw sql] ()
+2025-02-12 09:04:47,071 - [INFO] - SELECT @@sql_mode
+2025-02-12 09:04:47,072 - [INFO] - [raw sql] ()
+2025-02-12 09:04:47,074 - [INFO] - SELECT @@lower_case_table_names
+2025-02-12 09:04:47,076 - [INFO] - [raw sql] ()
+2025-02-12 09:04:47,082 - [INFO] - BEGIN (implicit)
+2025-02-12 09:04:47,084 - [INFO] - SELECT 1
+2025-02-12 09:04:47,085 - [INFO] - [generated in 0.00160s] ()
+2025-02-12 09:04:47,088 - [INFO] - ROLLBACK
+2025-02-12 09:04:47,095 - [INFO] - Resposta: 200
+2025-02-12 09:05:18,835 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:05:18,838 - [INFO] - Resposta: 200
+2025-02-12 09:05:20,218 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:05:20,347 - [INFO] - Resposta: 200
+2025-02-12 09:05:58,980 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:05:58,982 - [INFO] - Resposta: 200
+2025-02-12 09:05:59,115 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:05:59,221 - [INFO] - Resposta: 200
+2025-02-12 09:11:10,140 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:11:10,143 - [INFO] - Resposta: 200
+2025-02-12 09:11:10,511 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:11:10,630 - [INFO] - Resposta: 200
+2025-02-12 09:11:23,947 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:11:24,736 - [INFO] - Resposta: 200
+2025-02-12 09:14:42,355 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:14:42,360 - [INFO] - Resposta: 200
+2025-02-12 09:14:42,561 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:14:42,726 - [INFO] - Resposta: 200
+2025-02-12 09:14:46,934 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:14:47,156 - [INFO] - Resposta: 200
+2025-02-12 09:15:56,037 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:15:56,039 - [INFO] - Resposta: 200
+2025-02-12 09:15:57,462 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:15:57,537 - [INFO] - Resposta: 200
+2025-02-12 09:16:03,498 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:16:04,039 - [INFO] - Resposta: 200
+2025-02-12 09:16:30,914 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:16:30,916 - [INFO] - Resposta: 200
+2025-02-12 09:16:31,273 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:16:31,345 - [INFO] - Resposta: 200
+2025-02-12 09:16:36,749 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:16:36,988 - [INFO] - Resposta: 200
+2025-02-12 09:17:08,422 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:17:08,427 - [INFO] - Resposta: 200
+2025-02-12 09:17:08,626 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:17:08,726 - [INFO] - Resposta: 200
+2025-02-12 09:17:13,934 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:17:14,095 - [INFO] - Resposta: 200
+2025-02-12 09:17:44,574 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/
+2025-02-12 09:17:44,580 - [INFO] - Resposta: 200
+2025-02-12 09:17:51,649 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:17:51,650 - [INFO] - Resposta: 200
+2025-02-12 09:17:51,836 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:17:51,950 - [INFO] - Resposta: 200
+2025-02-12 09:17:56,796 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:17:56,958 - [INFO] - Resposta: 200
+2025-02-12 09:20:16,192 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:20:16,388 - [INFO] - Resposta: 200
+2025-02-12 09:23:00,795 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:23:00,796 - [INFO] - Resposta: 200
+2025-02-12 09:23:00,960 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:23:01,048 - [INFO] - Resposta: 200
+2025-02-12 09:23:04,833 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:23:05,184 - [INFO] - Resposta: 200
+2025-02-12 09:24:00,208 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:24:00,211 - [INFO] - Resposta: 200
+2025-02-12 09:24:00,756 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:24:00,860 - [INFO] - Resposta: 200
+2025-02-12 09:24:06,869 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:24:07,309 - [INFO] - Resposta: 200
+2025-02-12 09:26:18,365 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:26:18,367 - [INFO] - Resposta: 200
+2025-02-12 09:26:19,687 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:26:19,783 - [INFO] - Resposta: 200
+2025-02-12 09:26:23,414 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:26:23,643 - [INFO] - Resposta: 200
+2025-02-12 09:27:19,663 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:27:19,664 - [INFO] - Resposta: 200
+2025-02-12 09:27:20,147 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:27:20,150 - [INFO] - Resposta: 200
+2025-02-12 09:27:25,090 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:27:25,202 - [INFO] - Resposta: 200
+2025-02-12 09:27:35,842 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:27:35,845 - [INFO] - Resposta: 200
+2025-02-12 09:27:36,618 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:27:36,713 - [INFO] - Resposta: 200
+2025-02-12 09:27:41,065 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:27:41,228 - [INFO] - Resposta: 200
+2025-02-12 09:30:59,477 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:30:59,479 - [INFO] - Resposta: 200
+2025-02-12 09:30:59,712 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:31:00,024 - [INFO] - Resposta: 200
+2025-02-12 09:31:06,380 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:31:09,729 - [INFO] - Resposta: 200
+2025-02-12 09:42:15,637 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:42:15,639 - [INFO] - Resposta: 200
+2025-02-12 09:42:15,799 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:42:15,932 - [INFO] - Resposta: 200
+2025-02-12 09:42:21,284 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:42:21,338 - [INFO] - SELECT DATABASE()
+2025-02-12 09:42:21,339 - [INFO] - [raw sql] ()
+2025-02-12 09:42:21,342 - [INFO] - SELECT @@sql_mode
+2025-02-12 09:42:21,343 - [INFO] - [raw sql] ()
+2025-02-12 09:42:21,345 - [INFO] - SELECT @@lower_case_table_names
+2025-02-12 09:42:21,348 - [INFO] - [raw sql] ()
+2025-02-12 09:42:21,351 - [INFO] - BEGIN (implicit)
+2025-02-12 09:42:21,353 - [INFO] - SELECT 1
+2025-02-12 09:42:21,354 - [INFO] - [generated in 0.00146s] ()
+2025-02-12 09:42:21,357 - [INFO] - ROLLBACK
+2025-02-12 09:42:21,358 - [INFO] - Resposta: 200
+2025-02-12 09:42:29,658 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/
+2025-02-12 09:42:29,661 - [INFO] - Resposta: 200
+2025-02-12 09:42:35,552 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:42:35,554 - [INFO] - Resposta: 200
+2025-02-12 09:42:35,965 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:42:35,967 - [INFO] - Resposta: 200
+2025-02-12 09:42:41,607 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:42:41,608 - [INFO] - BEGIN (implicit)
+2025-02-12 09:42:41,610 - [INFO] - SELECT 1
+2025-02-12 09:42:41,611 - [INFO] - [cached since 20.26s ago] ()
+2025-02-12 09:42:41,613 - [INFO] - ROLLBACK
+2025-02-12 09:42:41,616 - [INFO] - Resposta: 200
+2025-02-12 09:43:26,717 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:43:26,719 - [INFO] - Resposta: 200
+2025-02-12 09:43:26,916 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:43:26,919 - [INFO] - Resposta: 200
+2025-02-12 09:43:30,223 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/
+2025-02-12 09:43:30,225 - [INFO] - Resposta: 200
+2025-02-12 09:43:58,510 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/
+2025-02-12 09:43:58,512 - [INFO] - Resposta: 200
+2025-02-12 09:44:02,930 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/
+2025-02-12 09:44:02,932 - [INFO] - Resposta: 200
+2025-02-12 09:44:06,291 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:44:06,293 - [INFO] - Resposta: 200
+2025-02-12 09:44:32,209 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:44:32,211 - [INFO] - Resposta: 200
+2025-02-12 09:44:32,332 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:44:32,464 - [INFO] - Resposta: 200
+2025-02-12 09:44:36,977 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/
+2025-02-12 09:44:36,980 - [INFO] - Resposta: 200
+2025-02-12 09:46:34,870 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/
+2025-02-12 09:46:34,874 - [INFO] - Resposta: 200
+2025-02-12 09:46:38,734 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:46:38,736 - [INFO] - Resposta: 200
+2025-02-12 09:46:38,933 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:46:39,001 - [INFO] - Resposta: 200
+2025-02-12 09:47:24,979 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/
+2025-02-12 09:47:24,982 - [INFO] - Resposta: 200
+2025-02-12 09:48:11,948 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/
+2025-02-12 09:48:11,954 - [INFO] - Resposta: 200
+2025-02-12 09:48:16,006 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:48:16,008 - [INFO] - Resposta: 200
+2025-02-12 09:48:16,292 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:48:16,342 - [INFO] - Resposta: 200
+2025-02-12 09:48:22,663 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:48:22,716 - [INFO] - SELECT DATABASE()
+2025-02-12 09:48:22,717 - [INFO] - [raw sql] ()
+2025-02-12 09:48:22,720 - [INFO] - SELECT @@sql_mode
+2025-02-12 09:48:22,721 - [INFO] - [raw sql] ()
+2025-02-12 09:48:22,723 - [INFO] - SELECT @@lower_case_table_names
+2025-02-12 09:48:22,724 - [INFO] - [raw sql] ()
+2025-02-12 09:48:22,729 - [INFO] - BEGIN (implicit)
+2025-02-12 09:48:22,731 - [INFO] - SELECT 1
+2025-02-12 09:48:22,733 - [INFO] - [generated in 0.00123s] ()
+2025-02-12 09:48:22,739 - [INFO] - ROLLBACK
+2025-02-12 09:48:22,742 - [INFO] - Resposta: 200
+2025-02-12 09:48:49,771 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/
+2025-02-12 09:48:49,779 - [INFO] - Resposta: 200
+2025-02-12 09:48:53,832 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:48:53,834 - [INFO] - Resposta: 200
+2025-02-12 09:48:54,153 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:48:54,216 - [INFO] - Resposta: 200
+2025-02-12 09:50:27,800 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:50:27,802 - [INFO] - Resposta: 200
+2025-02-12 09:50:27,923 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:50:27,926 - [INFO] - Resposta: 200
+2025-02-12 09:50:32,899 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:50:32,904 - [INFO] - Resposta: 200
+2025-02-12 09:50:34,348 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:50:34,350 - [INFO] - Resposta: 200
+2025-02-12 09:50:54,225 - [INFO] - Recebendo requisição: POST http://127.0.0.1:8000/api/v1/auth/token
+2025-02-12 09:50:54,235 - [INFO] - Buscando usuário: admin
+2025-02-12 09:50:54,355 - [INFO] - SELECT DATABASE()
+2025-02-12 09:50:54,356 - [INFO] - [raw sql] ()
+2025-02-12 09:50:54,359 - [INFO] - SELECT @@sql_mode
+2025-02-12 09:50:54,359 - [INFO] - [raw sql] ()
+2025-02-12 09:50:54,362 - [INFO] - SELECT @@lower_case_table_names
+2025-02-12 09:50:54,363 - [INFO] - [raw sql] ()
+2025-02-12 09:50:54,367 - [INFO] - BEGIN (implicit)
+2025-02-12 09:50:54,446 - [INFO] - SELECT user.id, user.nome, user.email, user.senha, user.login, user.grupo, user.telefone, user.cargo, user.setor, user.ativo 
+FROM user 
+WHERE user.login = %s
+2025-02-12 09:50:54,449 - [INFO] - [generated in 0.00270s] ('admin',)
+2025-02-12 09:50:54,863 - [INFO] - Usuário encontrado: admin
+2025-02-12 09:50:55,331 - [INFO] - ROLLBACK
+2025-02-12 09:50:55,336 - [INFO] - Resposta: 200
+2025-02-12 09:51:17,623 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/users/me
+2025-02-12 09:51:17,631 - [INFO] - Buscando usuário: admin
+2025-02-12 09:51:17,632 - [INFO] - BEGIN (implicit)
+2025-02-12 09:51:17,635 - [INFO] - SELECT user.id, user.nome, user.email, user.senha, user.login, user.grupo, user.telefone, user.cargo, user.setor, user.ativo 
+FROM user 
+WHERE user.login = %s
+2025-02-12 09:51:17,639 - [INFO] - [cached since 23.19s ago] ('admin',)
+2025-02-12 09:51:17,698 - [INFO] - Usuário encontrado: admin
+2025-02-12 09:51:17,945 - [INFO] - ROLLBACK
+2025-02-12 09:51:17,947 - [INFO] - Resposta: 200
+2025-02-12 09:51:28,169 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/users/
+2025-02-12 09:51:28,174 - [INFO] - BEGIN (implicit)
+2025-02-12 09:51:28,180 - [INFO] - SELECT user.id, user.nome, user.email, user.senha, user.login, user.grupo, user.telefone, user.cargo, user.setor, user.ativo 
+FROM user
+2025-02-12 09:51:28,212 - [INFO] - [generated in 0.03381s] ()
+2025-02-12 09:51:28,298 - [INFO] - ROLLBACK
+2025-02-12 09:51:28,313 - [INFO] - Resposta: 200
+2025-02-12 09:59:17,386 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:59:17,389 - [INFO] - Resposta: 200
+2025-02-12 09:59:18,207 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:59:18,368 - [INFO] - Resposta: 200
+2025-02-12 09:59:20,494 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/
+2025-02-12 09:59:20,498 - [INFO] - Resposta: 200
+2025-02-12 09:59:23,672 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 09:59:23,674 - [INFO] - Resposta: 200
+2025-02-12 09:59:25,496 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 09:59:25,499 - [INFO] - Resposta: 200
+2025-02-12 09:59:31,311 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 09:59:31,397 - [INFO] - SELECT DATABASE()
+2025-02-12 09:59:31,399 - [INFO] - [raw sql] ()
+2025-02-12 09:59:31,404 - [INFO] - SELECT @@sql_mode
+2025-02-12 09:59:31,405 - [INFO] - [raw sql] ()
+2025-02-12 09:59:31,407 - [INFO] - SELECT @@lower_case_table_names
+2025-02-12 09:59:31,408 - [INFO] - [raw sql] ()
+2025-02-12 09:59:31,415 - [INFO] - BEGIN (implicit)
+2025-02-12 09:59:31,419 - [INFO] - SELECT 1
+2025-02-12 09:59:31,421 - [INFO] - [generated in 0.00221s] ()
+2025-02-12 09:59:31,424 - [INFO] - ROLLBACK
+2025-02-12 09:59:31,427 - [INFO] - Resposta: 200
+2025-02-12 10:00:15,293 - [INFO] - Recebendo requisição: POST http://127.0.0.1:8000/api/v1/auth/token
+2025-02-12 10:00:15,299 - [INFO] - Buscando usuário: admin
+2025-02-12 10:00:15,301 - [INFO] - BEGIN (implicit)
+2025-02-12 10:00:15,384 - [INFO] - SELECT user.id, user.nome, user.email, user.senha, user.login, user.grupo, user.telefone, user.cargo, user.setor, user.ativo 
+FROM user 
+WHERE user.login = %s
+2025-02-12 10:00:15,387 - [INFO] - [generated in 0.00364s] ('admin',)
+2025-02-12 10:00:15,395 - [INFO] - Usuário encontrado: admin
+2025-02-12 10:00:15,867 - [INFO] - ROLLBACK
+2025-02-12 10:00:15,869 - [INFO] - Resposta: 200
+2025-02-12 10:00:24,962 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/users/
+2025-02-12 10:00:24,966 - [INFO] - BEGIN (implicit)
+2025-02-12 10:00:24,969 - [INFO] - SELECT user.id, user.nome, user.email, user.senha, user.login, user.grupo, user.telefone, user.cargo, user.setor, user.ativo 
+FROM user
+2025-02-12 10:00:24,971 - [INFO] - [generated in 0.00234s] ()
+2025-02-12 10:00:25,024 - [INFO] - ROLLBACK
+2025-02-12 10:00:25,030 - [INFO] - Resposta: 200
+2025-02-12 10:00:36,458 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/customers/
+2025-02-12 10:00:36,506 - [INFO] - BEGIN (implicit)
+2025-02-12 10:00:36,513 - [INFO] - SELECT customer.id, customer.razao_social, customer.nome_fantasia, customer.cpfecnpj, customer.cpf, customer.inscricao_estadual, customer.inscricao_municipal, customer.telefone, customer.celular, customer.email, customer.regime_tributario, customer.tipo_conta, customer.endereco, customer.bairro, customer.cidade, customer.estado, customer.numero, customer.cep, customer.complemento, customer.login_gov, customer.senha_gov, customer.certificado, customer.zap_contabil, customer.representante, customer.email1_iss, customer.email2_iss, customer.email3_iss 
+FROM customer
+2025-02-12 10:00:36,516 - [INFO] - [generated in 0.00283s] ()
+2025-02-12 10:00:36,596 - [INFO] - ROLLBACK
+2025-02-12 10:00:36,598 - [INFO] - Resposta: 200
+2025-02-12 10:00:49,283 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/activities/
+2025-02-12 10:00:49,285 - [INFO] - BEGIN (implicit)
+2025-02-12 10:00:49,288 - [INFO] - SELECT activity.id, activity.cliente_id, activity.usuario_id, activity.data_inicio, activity.data_fim, activity.tipo, activity.titulo, activity.descricao, activity.status 
+FROM activity
+2025-02-12 10:00:49,292 - [INFO] - [generated in 0.00405s] ()
+2025-02-12 10:00:49,452 - [INFO] - ROLLBACK
+2025-02-12 10:00:49,458 - [INFO] - Resposta: 200
+2025-02-12 10:02:30,912 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/activity_errors/
+2025-02-12 10:02:30,915 - [INFO] - BEGIN (implicit)
+2025-02-12 10:02:30,918 - [INFO] - SELECT activity_error.id, activity_error.usuario_id, activity_error.atividade_id, activity_error.data_hora, activity_error.tipo_automacao, activity_error.titulo, activity_error.detalhes 
+FROM activity_error
+2025-02-12 10:02:30,922 - [INFO] - [generated in 0.00368s] ()
+2025-02-12 10:02:30,952 - [INFO] - ROLLBACK
+2025-02-12 10:02:30,957 - [INFO] - Resposta: 200
+2025-02-12 10:03:44,967 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/
+2025-02-12 10:03:44,970 - [INFO] - Resposta: 200
+2025-02-12 10:03:48,343 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-12 10:03:48,344 - [INFO] - Resposta: 200
+2025-02-12 10:03:48,594 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-12 10:03:48,654 - [INFO] - Resposta: 200
+2025-02-12 10:03:57,784 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-12 10:03:57,806 - [INFO] - SELECT DATABASE()
+2025-02-12 10:03:57,807 - [INFO] - [raw sql] ()
+2025-02-12 10:03:57,810 - [INFO] - SELECT @@sql_mode
+2025-02-12 10:03:57,811 - [INFO] - [raw sql] ()
+2025-02-12 10:03:57,813 - [INFO] - SELECT @@lower_case_table_names
+2025-02-12 10:03:57,814 - [INFO] - [raw sql] ()
+2025-02-12 10:03:57,822 - [INFO] - BEGIN (implicit)
+2025-02-12 10:03:57,824 - [INFO] - SELECT 1
+2025-02-12 10:03:57,826 - [INFO] - [generated in 0.00178s] ()
+2025-02-12 10:03:57,828 - [INFO] - ROLLBACK
+2025-02-12 10:03:57,831 - [INFO] - Resposta: 200
