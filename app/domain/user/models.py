@@ -20,13 +20,6 @@ class User(Base):
     # Relacionamento com Activity
     activities = relationship('Activity', back_populates='usuario', lazy=True)
 
-    # Relacionamento com ActivityError
-    erros = relationship('ActivityError', back_populates='usuario', lazy=True)
-
-    # Relacionamento com UserAcessoriasConfig
-    acessorias_configs = relationship(
-        "UserAcessoriasConfig", back_populates="usuario", cascade="all, delete-orphan"
-    )
-
+    
     def __repr__(self):
         return f'<User {self.nome}>'

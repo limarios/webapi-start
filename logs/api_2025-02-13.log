@@ -9,3 +9,166 @@
 2025-02-13 14:03:51,550 - [INFO] - Resposta: 200
 2025-02-13 14:03:51,918 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
 2025-02-13 14:03:52,080 - [INFO] - Resposta: 200
+2025-02-13 14:39:25,836 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-13 14:39:25,894 - [INFO] - Resposta: 200
+2025-02-13 14:39:26,288 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-13 14:39:26,304 - [INFO] - Resposta: 200
+2025-02-13 14:39:40,905 - [INFO] - Recebendo requisição: POST http://127.0.0.1:8000/api/v1/auth/token
+2025-02-13 14:39:41,076 - [INFO] - Buscando usuário: admin
+2025-02-13 14:39:41,284 - [INFO] - SELECT DATABASE()
+2025-02-13 14:39:41,289 - [INFO] - [raw sql] ()
+2025-02-13 14:39:41,303 - [INFO] - SELECT @@sql_mode
+2025-02-13 14:39:41,303 - [INFO] - [raw sql] ()
+2025-02-13 14:39:41,306 - [INFO] - SELECT @@lower_case_table_names
+2025-02-13 14:39:41,307 - [INFO] - [raw sql] ()
+2025-02-13 14:39:41,314 - [INFO] - BEGIN (implicit)
+2025-02-13 14:39:41,357 - [INFO] - ROLLBACK
+2025-02-13 14:39:41,365 - [ERROR] - Erro inesperado: When initializing mapper Mapper[User(user)], expression 'ActivityError' failed to locate a name ('ActivityError'). If this is a class name, consider adding this relationship() to the <class 'app.domain.user.models.User'> class after both dependent classes have been defined.
+Traceback (most recent call last):
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\clsregistry.py", line 516, in _resolve_name
+    rval = d[token]
+           ~^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\util\_collections.py", line 345, in __missing__
+    self[key] = val = self.creator(key)
+                      ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\clsregistry.py", line 484, in _access_cls
+    return self.fallback[key]
+           ~~~~~~~~~~~~~^^^^^
+KeyError: 'ActivityError'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ac-010.ALCANCE\documents\projetos\webapi-start\app\infra\middleware.py", line 13, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\starlette\middleware\base.py", line 154, in call_next
+    raise app_exc
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\starlette\middleware\base.py", line 141, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\prometheus_fastapi_instrumentator\middleware.py", line 174, in __call__
+    raise exc
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\prometheus_fastapi_instrumentator\middleware.py", line 172, in __call__
+    await self.app(scope, receive, send_wrapper)
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\starlette\routing.py", line 715, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\starlette\routing.py", line 735, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\starlette\routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\starlette\routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\starlette\routing.py", line 73, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\fastapi\routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\fastapi\routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\documents\projetos\webapi-start\app\domain\auth\routes.py", line 27, in login_for_access_token
+    user = await authenticate_user(form_data.username, form_data.password, service)  # Adicione await aqui
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\documents\projetos\webapi-start\app\domain\auth\routes.py", line 16, in authenticate_user
+    user = await service.get_user_by_username(username)  # Adicione await aqui
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\documents\projetos\webapi-start\app\domain\user\service.py", line 53, in get_user_by_username
+    user = await self.repo.get_user_by_username(username)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\documents\projetos\webapi-start\app\domain\user\repository.py", line 61, in get_user_by_username
+    result = await self.db.execute(select(User).filter(User.login == username))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 463, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1630, in _execute_clauseelement
+    compiled_sql, extracted_params, cache_hit = elem._compile_w_cache(
+                                                ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 703, in _compile_w_cache
+    compiled_sql = self._compiler(
+                   ^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 316, in _compiler
+    return dialect.statement_compiler(dialect, self, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\sql\compiler.py", line 1429, in __init__
+    Compiled.__init__(self, dialect, statement, **kwargs)
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\sql\compiler.py", line 870, in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\sql\compiler.py", line 915, in process
+    return obj._compiler_dispatch(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\sql\visitors.py", line 141, in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\sql\compiler.py", line 4680, in visit_select
+    compile_state = select_stmt._compile_state_factory(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\sql\base.py", line 683, in create_for_statement
+    return klass.create_for_statement(statement, compiler, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 1110, in create_for_statement
+    _QueryEntity.to_compile_state(
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 2565, in to_compile_state
+    _MapperEntity(
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 2645, in __init__
+    entity._post_inspect
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1257, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2724, in _post_inspect
+    self._check_configure()
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2401, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4213, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4254, in _do_configure_registries
+    mapper._post_configure_properties()
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2418, in _post_configure_properties
+    prop.init()
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\interfaces.py", line 589, in init
+    self.do_init()
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1656, in do_init
+    self._setup_entity()
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1868, in _setup_entity
+    self._clsregistry_resolve_name(argument)(),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\clsregistry.py", line 520, in _resolve_name
+    self._raise_for_name(name, err)
+  File "C:\Users\ac-010.ALCANCE\Documents\Projetos\WebApiAlcance\venv\Lib\site-packages\sqlalchemy\orm\clsregistry.py", line 501, in _raise_for_name
+    raise exc.InvalidRequestError(
+sqlalchemy.exc.InvalidRequestError: When initializing mapper Mapper[User(user)], expression 'ActivityError' failed to locate a name ('ActivityError'). If this is a class name, consider adding this relationship() to the <class 'app.domain.user.models.User'> class after both dependent classes have been defined.
+2025-02-13 14:39:41,732 - [INFO] - Resposta: 500
+2025-02-13 14:39:58,861 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-13 14:39:58,863 - [INFO] - Resposta: 200
+2025-02-13 14:39:59,182 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-13 14:39:59,186 - [INFO] - Resposta: 200

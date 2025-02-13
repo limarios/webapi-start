@@ -17,9 +17,6 @@ class Activity(Base):
     descricao = Column(Text, nullable=True)
     status = Column(String(20), nullable=True)
 
-    # Relacionamento com ActivityError
-    erros = relationship('ActivityError', back_populates='atividade', lazy=True)
-
     # Relacionamentos com Customer e User
     cliente = relationship('Customer', back_populates='activities')
     usuario = relationship('User', back_populates='activities')
