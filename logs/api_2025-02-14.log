@@ -1,0 +1,34 @@
+2025-02-14 08:50:56,415 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-14 08:50:56,415 - [INFO] - Resposta: 200
+2025-02-14 08:50:56,705 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-14 08:50:56,824 - [INFO] - Resposta: 200
+2025-02-14 08:51:07,173 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-14 08:51:07,212 - [INFO] - SELECT DATABASE()
+2025-02-14 08:51:07,216 - [INFO] - [raw sql] ()
+2025-02-14 08:51:07,218 - [INFO] - SELECT @@sql_mode
+2025-02-14 08:51:07,218 - [INFO] - [raw sql] ()
+2025-02-14 08:51:07,218 - [INFO] - SELECT @@lower_case_table_names
+2025-02-14 08:51:07,218 - [INFO] - [raw sql] ()
+2025-02-14 08:51:07,218 - [INFO] - BEGIN (implicit)
+2025-02-14 08:51:07,218 - [INFO] - SELECT 1
+2025-02-14 08:51:07,218 - [INFO] - [generated in 0.00094s] ()
+2025-02-14 08:51:07,230 - [INFO] - ROLLBACK
+2025-02-14 08:51:07,233 - [INFO] - Resposta: 200
+2025-02-14 08:52:30,160 - [INFO] - Recebendo requisição: GET http://127.0.0.1:7000/
+2025-02-14 08:52:30,164 - [INFO] - Resposta: 200
+2025-02-14 08:52:30,473 - [INFO] - Recebendo requisição: GET http://127.0.0.1:7000/favicon.ico
+2025-02-14 08:52:30,475 - [INFO] - Resposta: 404
+2025-02-14 08:52:33,513 - [INFO] - Recebendo requisição: GET http://127.0.0.1:7000/docs
+2025-02-14 08:52:33,515 - [INFO] - Resposta: 200
+2025-02-14 08:52:33,744 - [INFO] - Recebendo requisição: GET http://127.0.0.1:7000/openapi.json
+2025-02-14 08:52:33,861 - [INFO] - Resposta: 200
+2025-02-14 08:52:42,896 - [INFO] - Recebendo requisição: GET http://127.0.0.1:7000/openapi.json
+2025-02-14 08:52:42,899 - [INFO] - Resposta: 200
+2025-02-14 11:38:36,277 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-14 11:38:36,279 - [INFO] - Resposta: 200
+2025-02-14 11:38:37,997 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-14 11:38:38,000 - [INFO] - Resposta: 200
+2025-02-14 11:38:38,121 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-14 11:38:38,251 - [INFO] - Resposta: 200
+2025-02-14 11:39:18,019 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/metrics
+2025-02-14 11:39:18,023 - [INFO] - Resposta: 200
