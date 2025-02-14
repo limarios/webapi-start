@@ -17,7 +17,7 @@ async def get_activity_service(db: AsyncSession = Depends(get_db)) -> ActivitySe
     repo = ActivityRepository(db)
     return ActivityService(repo)
 
-@router.post("/", response_model=dict, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=dict, status_code=status.HTTP_201_CREATED, summary="Criar uma nova atividade")
 async def create_activity(
     activity: ActivityCreate,
     service: ActivityService = Depends(get_activity_service),
@@ -27,7 +27,7 @@ async def create_activity(
     activity_obj = await service.create_activity(activity)
     return success_response(data=activity_obj, message="Atividade criada com sucesso")
 
-@router.get("/{activity_id}", response_model=dict)
+@router.get("/{activity_id}", response_model=dict, summary="Buscar dados da atividade pelo ID")
 async def get_activity(
     activity_id: int,
     service: ActivityService = Depends(get_activity_service),
@@ -39,7 +39,7 @@ async def get_activity(
         return error_response("Atividade não encontrada.")
     return success_response(data=activity, message="Atividade encontrada com sucesso")
 
-@router.get("/", response_model=dict)
+@router.get("/", response_model=dict, summary="Listar todas as atividades")
 async def list_activities(
     service: ActivityService = Depends(get_activity_service),
     current_user=Depends(get_current_user)  # 🔒 Exige autenticação
@@ -50,7 +50,7 @@ async def list_activities(
         return error_response("Nenhuma atividade encontrada.", details=[])
     return success_response(data=activities, message="Lista de atividades recuperada com sucesso")
 
-@router.put("/{activity_id}", response_model=dict)
+@router.put("/{activity_id}", response_model=dict, summary="Atualizar dados da atividade")
 async def update_activity(
     activity_id: int,
     activity_update: ActivityUpdate,
@@ -63,7 +63,7 @@ async def update_activity(
         return error_response("Atividade não encontrada.")
     return success_response(data=updated_activity, message="Atividade atualizada com sucesso")
 
-@router.delete("/{activity_id}", response_model=dict)
+@router.delete("/{activity_id}", response_model=dict, summary="Deletar dados da atividade")
 async def delete_activity(
     activity_id: int,
     service: ActivityService = Depends(get_activity_service),

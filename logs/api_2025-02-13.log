@@ -172,3 +172,29 @@ sqlalchemy.exc.InvalidRequestError: When initializing mapper Mapper[User(user)],
 2025-02-13 14:39:58,863 - [INFO] - Resposta: 200
 2025-02-13 14:39:59,182 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
 2025-02-13 14:39:59,186 - [INFO] - Resposta: 200
+2025-02-13 14:41:03,340 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/docs
+2025-02-13 14:41:03,341 - [INFO] - Resposta: 200
+2025-02-13 14:41:03,456 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/openapi.json
+2025-02-13 14:41:03,555 - [INFO] - Resposta: 200
+2025-02-13 14:41:09,741 - [INFO] - Recebendo requisição: GET http://127.0.0.1:8000/api/v1/infra/health
+2025-02-13 14:41:09,763 - [INFO] - SELECT DATABASE()
+2025-02-13 14:41:09,764 - [INFO] - [raw sql] ()
+2025-02-13 14:41:09,766 - [INFO] - SELECT @@sql_mode
+2025-02-13 14:41:09,766 - [INFO] - [raw sql] ()
+2025-02-13 14:41:09,768 - [INFO] - SELECT @@lower_case_table_names
+2025-02-13 14:41:09,768 - [INFO] - [raw sql] ()
+2025-02-13 14:41:09,776 - [INFO] - BEGIN (implicit)
+2025-02-13 14:41:09,777 - [INFO] - SELECT 1
+2025-02-13 14:41:09,778 - [INFO] - [generated in 0.00088s] ()
+2025-02-13 14:41:09,780 - [INFO] - ROLLBACK
+2025-02-13 14:41:09,782 - [INFO] - Resposta: 200
+2025-02-13 14:41:19,505 - [INFO] - Recebendo requisição: POST http://127.0.0.1:8000/api/v1/auth/token
+2025-02-13 14:41:19,511 - [INFO] - Buscando usuário: admin
+2025-02-13 14:41:19,513 - [INFO] - BEGIN (implicit)
+2025-02-13 14:41:19,542 - [INFO] - SELECT user.id, user.nome, user.email, user.senha, user.login, user.grupo, user.telefone, user.cargo, user.setor, user.ativo 
+FROM user 
+WHERE user.login = %s
+2025-02-13 14:41:19,547 - [INFO] - [generated in 0.00740s] ('admin',)
+2025-02-13 14:41:19,555 - [INFO] - Usuário encontrado: admin
+2025-02-13 14:41:19,953 - [INFO] - ROLLBACK
+2025-02-13 14:41:19,955 - [INFO] - Resposta: 200

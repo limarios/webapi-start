@@ -6,7 +6,7 @@ import logging
 
 router = APIRouter()
 
-@router.get("/health", tags=["Infra"], summary="Health Check da API")
+@router.get("/health", summary="Health Check da API")
 async def health_check(db: AsyncSession = Depends(get_db)):
     """
     Verifica o status da API e do Banco de Dados.
