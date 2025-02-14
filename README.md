@@ -64,8 +64,8 @@ Baseada em princípios modernos, como **Clean Architecture** e **Domain-Driven D
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/seu_usuario/automationapp-api.git
-   cd automationapp-api
+   git clone https://github.com/Matlima/webapi-start
+   cd webapi-start
    ```
 
 2. **Crie ative um ambiente virtual:**
@@ -84,6 +84,9 @@ Baseada em princípios modernos, como **Clean Architecture** e **Domain-Driven D
     ```
 
 4. **Configurando o arquivo .env**
+
+</br>3 arquivos de ``.env`` um padrão, ambiente de desenvolvimento e produção para ter uma base como esta sendo operado, a ``SECRET_KEY`` usada é a de teste, alterar após clonar repositório.
+
 </br> Crie um arquivo ``.env`` na raiz do projeto e configure suas variáveis de ambiente:
    ```bash 
       DB_USER=root
