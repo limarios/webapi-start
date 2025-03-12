@@ -71,21 +71,21 @@ Baseada em princípios modernos, como **Clean Architecture** e **Domain-Driven D
 2. **Crie ative um ambiente virtual:**
     
     ```bash 
-   python -m venv venv
-    # No Windows:
-    venv\Scripts\activate
-    # No macOS/Linux:
-    source venv/bin/activate
-   ```
+      python -m venv venv
+       # No Windows:
+       venv\Scripts\activate
+       # No macOS/Linux:
+       source venv/bin/activate
+    ```
    
 3. **Instalando as dependências**
    ```bash 
       pip install -r requirements.txt
-    ```
+   ```
+
 
 4. **Configurando o arquivo .env**
-
-</br>3 arquivos de ``.env`` um padrão, ambiente de desenvolvimento e produção para ter uma base como esta sendo operado, a ``SECRET_KEY`` usada é a de teste, alterar após clonar repositório.
+3 arquivos de ``.env`` um padrão, ambiente de desenvolvimento e produção para ter uma base como esta sendo operado, a ``SECRET_KEY`` usada é a de teste, alterar após clonar repositório.
 
 </br> Crie um arquivo ``.env`` na raiz do projeto e configure suas variáveis de ambiente:
    ```bash 
@@ -97,12 +97,12 @@ Baseada em princípios modernos, como **Clean Architecture** e **Domain-Driven D
       SECRET_KEY="sua_chave_secreta"
       ALGORITHM="HS256"
       ACCESS_TOKEN_EXPIRE_MINUTES=30
-    ```
+   ```
 
 5. **Criar as tabelas no banco de dados**
    ```bash 
       alembic upgrade head
-    ```
+   ```
 
 ---
 
