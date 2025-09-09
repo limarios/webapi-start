@@ -64,7 +64,7 @@ Baseada em princípios modernos, como **Clean Architecture** e **Domain-Driven D
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/Matlima/webapi-start
+   git clone https://github.com/limarios/webapi-start
    cd webapi-start
    ```
 
