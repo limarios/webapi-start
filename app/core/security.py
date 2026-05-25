@@ -5,7 +5,8 @@ from __future__ import annotations
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
-from jose import JWTError, jwt
+import jwt
+from jwt import InvalidTokenError
 from passlib.context import CryptContext
 
 from app.core.config import get_settings
@@ -18,6 +19,10 @@ _password_context = CryptContext(
     deprecated="auto",
 )
 
+# Hash dummy pré-computado usado para nivelar o tempo de verificação
+# quando o usuário não existe (defesa contra user enumeration via timing).
+_DUMMY_HASH = _password_context.hash("dummy-password-never-matches-any-real-user")
+
 
 def hash_password(plain_password: str) -> str:
     """Gera um hash seguro (argon2id) para a senha em texto puro."""
@@ -27,6 +32,15 @@ def hash_password(plain_password: str) -> str:
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verifica se uma senha em texto puro corresponde ao hash armazenado."""
     return _password_context.verify(plain_password, hashed_password)
+
+
+def consume_dummy_verify() -> None:
+    """Executa um verify contra um hash dummy para nivelar timing.
+
+    Use quando o usuário pesquisado não existe — o tempo gasto fica
+    indistinguível do caminho onde o usuário existe e a senha está errada.
+    """
+    _password_context.verify("dummy-input", _DUMMY_HASH)
 
 
 def create_access_token(
@@ -53,9 +67,18 @@ def create_access_token(
 
 
 def decode_token(token: str) -> dict[str, Any]:
-    """Valida e decodifica um JWT, levantando UnauthorizedError em caso de falha."""
+    """Valida e decodifica um JWT, levantando UnauthorizedError em caso de falha.
+
+    Sempre passa um único algoritmo explícito para `decode`, fechando a porta
+    de algorithm confusion: o token É forçado a usar o algoritmo configurado.
+    """
     settings = get_settings()
     try:
-        return jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
-    except JWTError as exc:
+        return jwt.decode(
+            token,
+            settings.SECRET_KEY,
+            algorithms=[settings.JWT_ALGORITHM],
+            options={"require": ["exp", "iat", "sub"]},
+        )
+    except InvalidTokenError as exc:
         raise UnauthorizedError("Token inválido ou expirado") from exc

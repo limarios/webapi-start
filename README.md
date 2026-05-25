@@ -58,7 +58,7 @@ reais — não é boilerplate de tutorial.
 | Banco          | PostgreSQL 16 · SQLAlchemy 2 (async) · asyncpg                           |
 | Migrations     | Alembic                                                                  |
 | Configuração   | Pydantic Settings · `.env`                                               |
-| Segurança      | python-jose (JWT) · passlib (Argon2id) · SlowAPI (rate limit)            |
+| Segurança      | PyJWT 2.10 · passlib (Argon2id) · SlowAPI (rate limit)                   |
 | Qualidade      | Ruff · Black · mypy · pre-commit · pytest · httpx                        |
 | Containers     | Docker (multi-stage) · Docker Compose                                    |
 | CI/CD          | GitHub Actions (CI + 3 templates de deploy)                              |
@@ -193,13 +193,14 @@ Principais:
 | `POSTGRES_PASSWORD`            | `admin`                   | Senha do Postgres (**troque em produção**)          |
 | `POSTGRES_DB`                  | `webapi_start`            | Nome do database                                    |
 | `SECRET_KEY`                   | —                         | **Obrigatório.** Gere com `secrets.token_urlsafe`   |
-| `ACCESS_TOKEN_EXPIRE_MINUTES`  | `30`                      | Validade do JWT                                     |
-| `CORS_ORIGINS`                 | `http://localhost:3000`   | Origens permitidas (CSV)                            |
-| `RATE_LIMIT_PER_MINUTE`        | `60`                      | Requests/minuto por IP                              |
+| `ACCESS_TOKEN_EXPIRE_MINUTES`  | `15`                      | Validade do JWT (curto por design)                  |
+| `CORS_ORIGINS`                 | `http://localhost:3000`   | Origens permitidas (CSV) · `*` proibido em prod     |
+| `RATE_LIMIT_PER_MINUTE`        | `60`                      | Requests/minuto por IP (global)                     |
+| `LOGIN_RATE_LIMIT_PER_MINUTE`  | `5`                       | Tentativas de login/minuto por IP                    |
 | `LOG_LEVEL`                    | `INFO`                    | Nível mínimo de logs                                |
 | `LOG_JSON`                     | `false`                   | `true` em produção para logs estruturados           |
 | `FIRST_SUPERUSER_EMAIL`        | `admin@example.com`       | Usuário admin criado pelo `make seed`               |
-| `FIRST_SUPERUSER_PASSWORD`     | `Admin@123`               | Senha do admin (**troque em produção**)             |
+| `FIRST_SUPERUSER_PASSWORD`     | `Admin@Pass123!`          | Senha do admin (**bloqueada em produção se default**) |
 
 ---
 
@@ -294,14 +295,20 @@ pre-commit run --all-files
 | Controle                          | Status |
 |------------------------------------|:------:|
 | Hashing de senha com Argon2id      | ✅     |
-| JWT assinado HS256 (RS256 opcional)| ✅     |
-| Cabeçalhos OWASP (HSTS, X-Frame…)  | ✅     |
-| CORS restrito por lista de origens | ✅     |
-| Rate limiting por IP               | ✅     |
+| Defesa contra user enumeration (timing-safe) | ✅ |
+| JWT assinado HS256 + algoritmo travado por `Literal` | ✅ |
+| JWT sem PII (apenas `sub` + `role`) | ✅     |
+| Senhas com complexidade mínima (12+ chars, blacklist) | ✅ |
+| Schemas separados admin/self (anti mass-assignment) | ✅ |
+| Headers OWASP completos (HSTS, CSP, COOP, CORP, X-Frame…) | ✅ |
+| CORS restrito (rejeita `*` + exige HTTPS em prod) | ✅ |
+| Rate limit global + rate limit dedicado no login | ✅ |
 | RBAC (role `admin`)                | ✅     |
+| `sslmode=require` automático em prod | ✅     |
+| Bootstrap recusa senha default em prod | ✅ |
 | Imagem Docker não-root             | ✅     |
 | `bandit` SAST no CI                | ✅     |
-| `pip-audit` para CVEs no CI        | ✅     |
+| `pip-audit` bloqueante no CI       | ✅     |
 | `gitleaks` para secrets no pre-commit/CI | ✅ |
 | Validação rigorosa via Pydantic    | ✅     |
 | Erros consistentes sem vazar stack | ✅     |
@@ -333,7 +340,7 @@ Este projeto segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - Releases automáticas via tag `vX.Y.Z` (workflow `.github/workflows/release.yml`).
 - Mudanças notáveis em [CHANGELOG.md](CHANGELOG.md).
 
-Versão atual: **v1.0.0**.
+Versão atual: **v1.1.0** — release de hardening de segurança (CVE patch + OWASP).
 
 ---
 

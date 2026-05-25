@@ -78,7 +78,7 @@ async def admin_user(db_session) -> UserModel:
     user = UserModel(
         email="admin@test.local",
         full_name="Admin Test",
-        hashed_password=hash_password("Admin@123"),
+        hashed_password=hash_password("Admin@Pass123!"),
         role=UserRole.ADMIN.value,
         is_active=True,
     )
@@ -93,7 +93,7 @@ async def regular_user(db_session) -> UserModel:
     user = UserModel(
         email="user@test.local",
         full_name="Regular User",
-        hashed_password=hash_password("User@1234"),
+        hashed_password=hash_password("UserPass@2024!"),
         role=UserRole.USER.value,
         is_active=True,
     )
@@ -107,7 +107,7 @@ async def regular_user(db_session) -> UserModel:
 async def admin_token(client: AsyncClient, admin_user) -> str:
     response = await client.post(
         "/api/v1/auth/login",
-        data={"username": admin_user.email, "password": "Admin@123"},
+        data={"username": admin_user.email, "password": "Admin@Pass123!"},
     )
     assert response.status_code == 200, response.text
     return response.json()["access_token"]

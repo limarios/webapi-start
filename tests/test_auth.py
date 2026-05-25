@@ -10,7 +10,7 @@ from httpx import AsyncClient
 async def test_login_with_valid_credentials(client: AsyncClient, admin_user) -> None:
     response = await client.post(
         "/api/v1/auth/login",
-        data={"username": admin_user.email, "password": "Admin@123"},
+        data={"username": admin_user.email, "password": "Admin@Pass123!"},
     )
     assert response.status_code == 200
     body = response.json()
