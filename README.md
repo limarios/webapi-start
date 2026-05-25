@@ -339,7 +339,7 @@ Versão atual: **v1.0.0**.
 
 ## 📜 Licença
 
-[MIT](LICENSE) © 2025 Matheus de Lima Rios.
+[MIT](LICENSE) © 2026 LimaRios.dev
 
 ---
 
@@ -347,8 +347,8 @@ Versão atual: **v1.0.0**.
 
 **Matheus de Lima Rios**
 
-- ✉️ limariosprofissional@gmail.com
-- 🌐 [agenciatechcoffee.com](https://agenciatechcoffee.com)
+- ✉️ contato@limarios.dev
+- 🌐 [limarios.dev](https://limarios.dev)
 - 💼 [LinkedIn](https://www.linkedin.com/in/limarios/)
 
 > Este projeto é open source e serve como base para acelerar a construção de APIs Python
