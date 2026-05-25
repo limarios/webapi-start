@@ -13,7 +13,7 @@ async def test_create_user_requires_admin(
     # Login como usuário comum
     login = await client.post(
         "/api/v1/auth/login",
-        data={"username": regular_user.email, "password": "User@1234"},
+        data={"username": regular_user.email, "password": "UserPass@2024!"},
     )
     token = login.json()["access_token"]
 
@@ -23,7 +23,7 @@ async def test_create_user_requires_admin(
         json={
             "email": "new@example.com",
             "full_name": "New User",
-            "password": "Strong@123",
+            "password": "Strong@Pass123!",
         },
     )
     assert response.status_code == 403
@@ -37,7 +37,7 @@ async def test_admin_can_create_user(client: AsyncClient, auth_headers) -> None:
         json={
             "email": "new@example.com",
             "full_name": "New User",
-            "password": "Strong@123",
+            "password": "Strong@Pass123!",
         },
     )
     assert response.status_code == 201
@@ -52,7 +52,7 @@ async def test_cannot_create_duplicate_email(client: AsyncClient, auth_headers) 
     payload = {
         "email": "dup@example.com",
         "full_name": "Dup",
-        "password": "Strong@123",
+        "password": "Strong@Pass123!",
     }
     first = await client.post("/api/v1/users/", headers=auth_headers, json=payload)
     assert first.status_code == 201
@@ -79,7 +79,7 @@ async def test_update_user(client: AsyncClient, auth_headers) -> None:
         json={
             "email": "to-update@example.com",
             "full_name": "Old Name",
-            "password": "Strong@123",
+            "password": "Strong@Pass123!",
         },
     )
     user_id = created.json()["id"]
@@ -101,7 +101,7 @@ async def test_delete_user(client: AsyncClient, auth_headers) -> None:
         json={
             "email": "to-delete@example.com",
             "full_name": "Bye",
-            "password": "Strong@123",
+            "password": "Strong@Pass123!",
         },
     )
     user_id = created.json()["id"]

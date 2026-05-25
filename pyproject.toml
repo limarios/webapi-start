@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "webapi-start"
-version = "1.0.0"
+version = "1.1.0"
 description = "API base profissional construída em FastAPI com Clean Architecture e DDD."
 readme = "README.md"
 license = { file = "LICENSE" }

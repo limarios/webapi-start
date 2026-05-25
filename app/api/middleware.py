@@ -14,18 +14,47 @@ logger = logging.getLogger(__name__)
 
 
 class SecureHeadersMiddleware(BaseHTTPMiddleware):
-    """Injeta cabeçalhos de segurança recomendados pela OWASP em toda resposta."""
+    """Injeta cabeçalhos de segurança recomendados pela OWASP em toda resposta.
+
+    Inclui CSP, COOP e CORP além dos cabeçalhos clássicos. A CSP é deliberadamente
+    permissiva ('unsafe-inline' em style/script) para não quebrar Swagger UI/ReDoc;
+    em produção, ajuste no `Content-Security-Policy` ou desabilite `/docs`.
+    """
 
     async def dispatch(self, request: Request, call_next):
         response: Response = await call_next(request)
+        # Cabeçalhos clássicos
         response.headers.setdefault("X-Content-Type-Options", "nosniff")
         response.headers.setdefault("X-Frame-Options", "DENY")
         response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
         response.headers.setdefault(
             "Strict-Transport-Security", "max-age=63072000; includeSubDomains"
         )
-        response.headers.setdefault("Permissions-Policy", "geolocation=(), microphone=(), camera=()")
+        response.headers.setdefault(
+            "Permissions-Policy", "geolocation=(), microphone=(), camera=()"
+        )
         response.headers.setdefault("X-XSS-Protection", "0")
+
+        # CSP — restritiva mas compatível com Swagger UI/ReDoc.
+        response.headers.setdefault(
+            "Content-Security-Policy",
+            (
+                "default-src 'self'; "
+                "img-src 'self' data: https://fastapi.tiangolo.com; "
+                "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; "
+                "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; "
+                "font-src 'self' data:; "
+                "connect-src 'self'; "
+                "frame-ancestors 'none'; "
+                "base-uri 'self'; "
+                "form-action 'self'"
+            ),
+        )
+
+        # Cross-Origin isolation
+        response.headers.setdefault("Cross-Origin-Opener-Policy", "same-origin")
+        response.headers.setdefault("Cross-Origin-Resource-Policy", "same-site")
+
         return response
 
 

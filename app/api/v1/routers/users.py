@@ -7,7 +7,7 @@ from uuid import UUID
 from fastapi import APIRouter, Query, status
 
 from app.api.v1.dependencies import AdminDep, CurrentUserDep, UserServiceDep
-from app.api.v1.schemas.user import UserCreate, UserRead, UserUpdate
+from app.api.v1.schemas.user import AdminUserUpdate, UserCreate, UserRead
 from app.domain.user.services import CreateUserInput, UpdateUserInput
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -76,7 +76,7 @@ async def get_user(
 )
 async def update_user(
     user_id: UUID,
-    payload: UserUpdate,
+    payload: AdminUserUpdate,
     service: UserServiceDep,
     _: AdminDep,
 ) -> UserRead:

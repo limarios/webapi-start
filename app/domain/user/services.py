@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from uuid import UUID
 
-from app.core.security import hash_password, verify_password
+from app.core.security import consume_dummy_verify, hash_password, verify_password
 from app.domain.user.entities import User, UserRole
 from app.domain.user.exceptions import (
     EmailAlreadyRegisteredError,
@@ -79,7 +79,11 @@ class UserService:
 
     async def authenticate(self, email: str, password: str) -> User:
         user = await self._repo.get_by_email(email.lower().strip())
+        # Defesa contra user enumeration por timing: quando o usuário não
+        # existe, ainda assim consumimos um Argon2 verify dummy para que o
+        # tempo de resposta seja indistinguível do caminho "senha errada".
         if not user:
+            consume_dummy_verify()
             raise InvalidCredentialsError()
         if not verify_password(password, user.hashed_password):
             raise InvalidCredentialsError()

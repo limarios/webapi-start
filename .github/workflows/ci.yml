@@ -10,12 +10,14 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 env:
   PYTHON_VERSION: "3.11"
   POSTGRES_USER: ci
   POSTGRES_PASSWORD: ci
   POSTGRES_DB: webapi_start_test
-  SECRET_KEY: "ci-only-not-a-real-secret-please-change-in-production-1234567890"
 
 jobs:
   lint:
@@ -78,6 +80,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
 
+      - name: Generate ephemeral SECRET_KEY for CI
+        # Gera uma chave aleatória por execução, evitando literal previsível no YAML.
+        run: echo "SECRET_KEY=$(openssl rand -hex 48)" >> "$GITHUB_ENV"
+
       - name: Apply migrations
         env:
           POSTGRES_HOST: localhost
@@ -105,6 +111,9 @@ jobs:
     name: Security Scan
     runs-on: ubuntu-latest
     needs: lint
+    permissions:
+      contents: read
+      security-events: write
     steps:
       - uses: actions/checkout@v4
 
@@ -121,9 +130,10 @@ jobs:
       - name: Bandit (SAST)
         run: bandit -r app -ll -q
 
-      - name: pip-audit (CVEs em deps)
+      - name: pip-audit (CVEs em deps) - bloqueante
+        # Sem `continue-on-error`. Se aparecer CVE, o build PRECISA quebrar.
+        # Para ignorar um CVE específico, documente em PR: pip-audit --ignore-vuln GHSA-...
         run: pip-audit --requirement requirements.txt --strict
-        continue-on-error: true
 
       - name: Gitleaks (secrets)
         uses: gitleaks/gitleaks-action@v2
