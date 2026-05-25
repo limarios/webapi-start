@@ -1,77 +1,90 @@
-from fastapi import FastAPI, Request
-from fastapi.security import OAuth2PasswordBearer
-from fastapi.openapi.models import OAuthFlows as OAuthFlowsModel
-from fastapi.openapi.models import OAuth2 as OAuth2Model
-from fastapi import HTTPException
-import uvicorn
+"""Entry-point da aplicação FastAPI."""
 
-from app.api.v1.endpoints.routes import router as api_router
+from __future__ import annotations
 
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
+from slowapi.util import get_remote_address
+
+from app.api.error_handlers import register_exception_handlers
+from app.api.middleware import RequestContextMiddleware, SecureHeadersMiddleware
+from app.api.v1.router import api_router
 from app.core.config import get_settings
-from app.core.error_handler import custom_http_exception_handler, generic_exception_handler
-
-from app.infra.logger import logger  # ✅ Importando logger corretamente
-from app.infra.middleware import GlobalErrorHandlerMiddleware
-from app.infra.monitoring import setup_monitoring
+from app.core.logging import configure_logging
 
 settings = get_settings()
-
-# 🔥 Ajustando tokenUrl no Swagger
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/token")
-security_scheme = OAuth2Model(
-    flows=OAuthFlowsModel(password={"tokenUrl": "/api/v1/auth/token"}),
+limiter = Limiter(
+    key_func=get_remote_address,
+    default_limits=[f"{settings.RATE_LIMIT_PER_MINUTE}/minute"],
 )
 
-app = FastAPI(
-    title="API Start",
-    description=(
-        "Esta API foi desenvolvida como projeto start e serve como o núcleo central para desenvolvimento de API. "
-        "Baseada em princípios modernos, como Clean Architecture e Domain-Driven Design, "
-        "a API integra, gerencia e orquestra processos gerais de uma API completa. "
-        "Projetada para ser flexível, robusta e escalável, ela permite a evolução contínua e a integração com sistemas legados "
-        "e futuros, garantindo segurança, desempenho e manutenibilidade em suas operações."
-    ),
-    contact={
-        "name": "Dev: Matheus de Lima Rios",
-        "email": "limariosprofissional@gmail.com",
-        "url": "https://agenciatechcoffee.com"
-    },
-    version="1.0.0",
-    openapi_tags=[
-        {"name": "Autenticação", "description": "Operações relacionadas à autenticação"},
-        {"name": "Infraestrutura", "description": "Serviços de Infraestrutura da API"},
-        {"name": "Users", "description": "Operações relacionadas aos Usuários"},
-        {"name": "Customers", "description": "Operações relacionadas aos Clientes"},
-        {"name": "Activities", "description": "Operações relacionadas as Atividades"},       
-    ],
-    openapi_components={"securitySchemes": {"OAuth2PasswordBearer": security_scheme}},
-    debug=settings.DEBUG
-)
 
-# Configurar métricas Prometheus
-setup_monitoring(app)
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    configure_logging()
+    yield
 
-# Tratamento de exceções
-app.add_exception_handler(HTTPException, custom_http_exception_handler)
-app.add_exception_handler(Exception, generic_exception_handler)
 
-# Adiciona middleware de erro global
-app.add_middleware(GlobalErrorHandlerMiddleware)
+def create_app() -> FastAPI:
+    """Application factory — facilita testes e múltiplas instâncias."""
+    app = FastAPI(
+        title=settings.APP_NAME,
+        description=(
+            "API base profissional construída com FastAPI seguindo Clean Architecture e "
+            "Domain-Driven Design. Pronta para ser usada como ponto de partida para "
+            "projetos reais — segura, testada e observável."
+        ),
+        version=settings.APP_VERSION,
+        docs_url="/docs" if not settings.is_production else None,
+        redoc_url="/redoc" if not settings.is_production else None,
+        openapi_url="/openapi.json" if not settings.is_production else None,
+        lifespan=lifespan,
+        contact={
+            "name": "Matheus de Lima Rios",
+            "email": "limariosprofissional@gmail.com",
+        },
+        license_info={"name": "MIT", "url": "https://opensource.org/licenses/MIT"},
+    )
 
-# Inclui as rotas corretamente
-app.include_router(api_router, prefix="/api/v1")
+    # Rate limiting
+    app.state.limiter = limiter
+    app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+    app.add_middleware(SlowAPIMiddleware)
 
-# Middleware para log de requisições
-@app.middleware("http")
-async def log_requests(request: Request, call_next):
-    logger.info(f"Recebendo requisição: {request.method} {request.url}")
-    response = await call_next(request)
-    logger.info(f"Resposta: {response.status_code}")
-    return response
+    # CORS
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.cors_origins_list,
+        allow_credentials=True,
+        allow_methods=["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+        allow_headers=["Authorization", "Content-Type", "X-Request-ID"],
+    )
 
-@app.get("/")
-def root():
-    return {"message": "API está online!", "environment": settings.ENV}
+    # Cabeçalhos de segurança e correlação de requests
+    app.add_middleware(SecureHeadersMiddleware)
+    app.add_middleware(RequestContextMiddleware)
 
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    # Handlers de erro consistentes
+    register_exception_handlers(app)
+
+    # Rotas da v1
+    app.include_router(api_router, prefix="/api/v1")
+
+    @app.get("/", tags=["Root"], include_in_schema=False)
+    async def root() -> dict[str, str]:
+        return {
+            "name": settings.APP_NAME,
+            "version": settings.APP_VERSION,
+            "environment": settings.APP_ENV,
+            "docs": "/docs",
+        }
+
+    return app
+
+
+app = create_app()

@@ -1,262 +1,355 @@
-### 🚀 API Start
+<div align="center">
 
-### 📌 Descrição
+# 🚀 WebAPI Start
 
-Esta API foi desenvolvida como projeto start e serve como o núcleo central para desenvolvimento de API. 
+**Template profissional de API em FastAPI** — Clean Architecture, DDD, PostgreSQL, JWT, Docker, CI/CD e deploy multi-cloud.
 
-Baseada em princípios modernos, como **Clean Architecture** e **Domain-Driven Design(DDD)**, a API integra, gerencia e orquestra processos gerais de uma API completa. Projetada para ser **flexível, robusta e escalável**, ela permite a evolução contínua e a integração com sistemas legados e futuros, garantindo segurança, desempenho e manutenibilidade em suas operações.
+[![CI](https://img.shields.io/badge/CI-GitHub_Actions-2088FF?logo=github-actions&logoColor=white)](.github/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)](Dockerfile)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
+</div>
+
+---
+
+## 📌 Sobre
+
+**WebAPI Start** é um *starter kit* opinativo para subir APIs Python profissionais com
+o mínimo de fricção. Pensado para ser **clonado, parametrizado e evoluído** em projetos
+reais — não é boilerplate de tutorial.
+
+### Por que esse template?
+
+- ⚙️ **Clean Architecture + DDD** de verdade — camadas separadas com dependências invertidas, não só "pastas com nomes bonitos".
+- 🔐 **Segurança em primeiro lugar** — Argon2id, JWT, CORS restrito, secure headers OWASP, rate limit, scanners no CI.
+- 🐳 **Docker-first** — multi-stage build, usuário não-root, healthcheck nativo, Postgres pronto via compose.
+- 🧪 **Testável** — suíte com `httpx.AsyncClient` + SQLite em memória, sem precisar de Docker para rodar `pytest`.
+- 🚢 **Deploy templates** prontos para **Google Cloud Run**, **AWS ECS Fargate** e **Vercel** — escolha e ative.
+- 📋 **Governança completa** — `CONTRIBUTING`, `SECURITY`, `CODE_OF_CONDUCT`, templates de issue/PR, Dependabot.
 
 ---
 
 ## 📖 Índice
 
-1. [🚀 Tecnologias Utilizadas](#-tecnologias-utilizadas)
-2. [🛠️ Instalação e Configuração](#️-instalação-e-configuração)
-3. [📦 Recursos](#️-recursos)
-4. [🔧 Estrutura do Projeto](#-estrutura-do-projeto)
-5. [📡 Executando a API](#-executando-a-api)
-6. [📝 Endpoints Disponíveis](#-endpoints-disponíveis)
-7. [🔑 Autenticação e Segurança](#-autenticação-e-segurança)
-8. [🛠️ Contribuição](#️-contribuição)
-9. [📜 Licença](#-licença)
-10. [📩 Contato](#-contato)
+1. [Stack](#-stack)
+2. [Quick start](#-quick-start)
+3. [Estrutura do projeto](#-estrutura-do-projeto)
+4. [Variáveis de ambiente](#-variáveis-de-ambiente)
+5. [Endpoints](#-endpoints)
+6. [Comandos do Makefile](#-comandos-do-makefile)
+7. [Testes & qualidade](#-testes--qualidade)
+8. [Segurança](#-segurança)
+9. [Deploy](#-deploy)
+10. [Versionamento](#-versionamento)
+11. [Licença](#-licença)
+12. [Autor](#-autor)
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Stack
 
-- **Linguagem:** Python 3.10+
-- **Framework:** FastAPI
-- **Banco de Dados:** MySQL
-- **ORM:** SQLAlchemy + Alembic (para migrations)
-- **Autenticação:** OAuth2 + JWT
-- **Documentação:** OpenAPI / Swagger UI
-- **Ferramentas de Testes:** Pytest
-- **Ferramentas de Log:** Loguru
-- **Gerenciador de Dependências:** Poetry / Pipenv
-- **Coletor de métricas:** Prometheus
-- **Dashboard de monitoramento:** Grafana
-- **Containerização:** Docker + Docker Compose (opcional)
-
----
-
-## 📦 Recursos
-
-- **Gerenciamento de Usuários:** Criação, leitura, atualização e deleção de usuários.
-- **Gerenciamento de Clientes:** Operações CRUD para clientes, com validações e regras de negócio.
-- **Gerenciamento de Atividades:** Criação, listagem, atualização e remoção de atividades.
-- **Documentação Interativa:** Swagger UI e ReDoc integrados para facilitar o entendimento e a experimentação dos endpoints.
-
+| Categoria      | Tecnologia                                                              |
+|----------------|--------------------------------------------------------------------------|
+| Linguagem      | Python 3.11+                                                             |
+| Web            | FastAPI 0.115 · Uvicorn                                                  |
+| Banco          | PostgreSQL 16 · SQLAlchemy 2 (async) · asyncpg                           |
+| Migrations     | Alembic                                                                  |
+| Configuração   | Pydantic Settings · `.env`                                               |
+| Segurança      | python-jose (JWT) · passlib (Argon2id) · SlowAPI (rate limit)            |
+| Qualidade      | Ruff · Black · mypy · pre-commit · pytest · httpx                        |
+| Containers     | Docker (multi-stage) · Docker Compose                                    |
+| CI/CD          | GitHub Actions (CI + 3 templates de deploy)                              |
+| Observabilidade| Logs estruturados (JSON opcional) · X-Request-ID                         |
 
 ---
 
-## 🛠️ Instalação e Configuração
+## ⚡ Quick start
 
-### Pré-requisitos
+> **Pré-requisitos:** Docker + Docker Compose, Python 3.11+, `make`.
 
-- Python 3.9 ou superior instalado.
-- MySQL instalado e configurado (ou outro banco de dados compatível).
-- Ambiente virtual (recomendado).
-
-### Passos
-
-1. **Clone o repositório:**
-
-   ```bash
-   git clone https://github.com/limarios/webapi-start
-   cd webapi-start
-   ```
-
-2. **Crie ative um ambiente virtual:**
-    
-    ```bash 
-      python -m venv venv
-       # No Windows:
-       venv\Scripts\activate
-       # No macOS/Linux:
-       source venv/bin/activate
-    ```
-   
-3. **Instalando as dependências**
-   ```bash 
-      pip install -r requirements.txt
-   ```
-
-
-4. **Configurando o arquivo .env**
-3 arquivos de ``.env`` um padrão, ambiente de desenvolvimento e produção para ter uma base como esta sendo operado, a ``SECRET_KEY`` usada é a de teste, alterar após clonar repositório.
-
-</br> Crie um arquivo ``.env`` na raiz do projeto e configure suas variáveis de ambiente:
-   ```bash 
-      DB_USER=root
-      DB_PASS=
-      DB_HOST=localhost
-      DB_PORT=3306
-      DB_NAME=seu_database
-      SECRET_KEY="sua_chave_secreta"
-      ALGORITHM="HS256"
-      ACCESS_TOKEN_EXPIRE_MINUTES=30
-   ```
-
-5. **Criar as tabelas no banco de dados**
-   ```bash 
-      alembic upgrade head
-   ```
-
----
-
-## 🔧 Estrutura do Projeto
-
-```bash 
-   alcance-api/
-│── app/
-│   ├── api/                      # Interface da aplicação (Interface Adapters)
-│   │   ├── v1/                   # Versão da API
-│   │   │   ├── endpoints/        # Endpoints da API
-│   │   │   │   ├── routes.py     # Definição de todas as rotas
-│   │   │   ├── __init__.py
-│   │   │   ├── dependencies.py   # Dependências comuns (ex: autenticação)
-│   ├── core/                     # Configurações principais e segurança
-│   │   ├── auth.py               # Lógica de autenticação e segurança
-│   │   ├── token.py              # Gerenciamento de tokens JWT
-│   │   ├── config.py             # Configurações globais (ex: .env)
-│   ├── db/                       # Infraestrutura do banco de dados
-│   │   ├── session.py            # Gerenciamento da sessão do banco
-│   │   ├── base_class.py               # Base para os modelos SQLAlchemy
-│   │   ├── migrations/           # Migrações do banco de dados (Alembic)
-│   ├── infra/                    # Gerencia persistência de dados, logs e serviços de suporte como monitoramento.
-│   │   ├── health.py             # Implementa o endpoint de verificação de saúde da API.
-│   │   ├── logger.py             # Configuração centralizada de logs.
-│   │   ├── middleware.py         # Implementação de middlewares da API.
-│   │   ├── monitoring.py         # Integração com Prometheus e Grafana para métricas.
-│   ├── domain/                   # Camada de Domínio (DDD)
-│   │   ├── auth/                 # Domínio de autenticação
-│   │   │   ├── routes.py         # Rotas relacionadas à autenticação
-│   │   │   ├── service.py        # Lógica de autenticação (caso de uso)
-│   │   │   ├── repository.py     # Acesso ao banco de dados
-│   │   │   ├── schemas.py        # Esquemas Pydantic para validação
-│   │   ├── user/                 # Domínio de Usuários
-│   │   │   ├── routes.py         # Rotas dos usuários
-│   │   │   ├── service.py        # Lógica de negócios
-│   │   │   ├── repository.py     # Repositório (acesso ao banco)
-│   │   │   ├── schemas.py        # Validações e serializações
-│   │   ├── customer/             # Domínio de Clientes
-│   │   │   ├── routes.py         # Rotas dos clientes
-│   │   │   ├── service.py        # Lógica de negócios
-│   │   │   ├── repository.py     # Repositório (acesso ao banco)
-│   │   │   ├── schemas.py        # Validações e serializações
-│   │   ├── activity/             # Domínio de Atividades
-│   │   │   ├── routes.py         # Rotas das atividades
-│   │   │   ├── service.py        # Lógica de negócios
-│   │   │   ├── repository.py     # Repositório (acesso ao banco)
-│   │   │   ├── schemas.py        # Validações e serializações
-│   ├── logs/                     # Logs da aplicação
-│   ├── tests/                    # Testes automatizados
-│   │   ├── test_auth.py          # Testes de autenticação
-│   │   ├── test_users.py         # Testes de usuários
-│   │   ├── test_customers.py     # Testes de clientes
-│   │   ├── test_activities.py    # Testes de atividades
-│   ├── main.py                   # Ponto de entrada da API
-│── .env                          # Variáveis de ambiente
-│── requirements.txt              # Dependências do projeto
-│── alembic.ini                   # Configuração do Alembic
-│── README.md                     # Documentação do projeto
-│── docker-compose.yml            # Configuração Docker Compose (opcional)
- ```
-
----
-
-## 📡 Executando a API
-
-### 🔹 Executar localmente
 ```bash
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-```
-### 🔹 Executar com Docker
-```bash
-docker-compose up --build
+# 1. Clone
+git clone https://github.com/limarios/webapi-start.git
+cd webapi-start
+
+# 2. Configure o ambiente
+cp .env.example .env
+# (opcional) gere uma SECRET_KEY forte:
+python -c "import secrets; print(secrets.token_urlsafe(64))"
+# ...e cole o resultado em SECRET_KEY no .env
+
+# 3. Suba o Postgres
+docker compose up -d postgres
+
+# 4. Instale dependências (cria .venv automaticamente)
+make install
+
+# 5. Aplique as migrations
+make migrate
+
+# 6. Crie o superusuário inicial (admin@example.com / Admin@123)
+make seed
+
+# 7. Suba a API com hot-reload
+make dev
 ```
 
-### 🔹 Acessar a documentação interativa
-- Swagger UI: http://localhost:8000/docs
-- Redoc: http://localhost:8000/redoc
+API rodando em **http://localhost:8000**.
+
+| Recurso         | URL                                  |
+|------------------|--------------------------------------|
+| Documentação    | http://localhost:8000/docs           |
+| ReDoc           | http://localhost:8000/redoc          |
+| Health check    | http://localhost:8000/api/v1/health  |
+| OpenAPI JSON    | http://localhost:8000/openapi.json   |
+
+> 🐳 **Tudo dentro do Docker?** Use `make docker-up` — sobe Postgres + API juntos.
 
 ---
 
-## 📝 Endpoints Disponíveis
+## 🏛️ Estrutura do projeto
 
-### 🔹Usuários
-- **Criar usuário:** ``POST /users/``
-- **Listar usuários:** ``GET /users/users_all``
-- **Buscar usuário por ID:** ``GET /users/{user_id}``
-- **Atualizar usuário:** ``PUT /users/{user_id}``
-- **Excluir usuário: DELETE** ``/users/{user_id}``
+```text
+.
+├── app/
+│   ├── api/                    # Camada de Apresentação (FastAPI)
+│   │   ├── v1/
+│   │   │   ├── routers/        # endpoints HTTP
+│   │   │   ├── schemas/        # DTOs Pydantic (request/response)
+│   │   │   ├── dependencies.py # DI: sessão, current_user, RBAC
+│   │   │   └── router.py       # agregador
+│   │   ├── error_handlers.py   # handlers globais de exceção
+│   │   └── middleware.py       # secure headers, request-id
+│   ├── core/                   # Cross-cutting (independente de framework)
+│   │   ├── config.py           # Pydantic Settings
+│   │   ├── exceptions.py       # exceções base da app
+│   │   ├── logging.py          # configuração de logs (texto/JSON)
+│   │   └── security.py         # JWT + hashing de senha
+│   ├── domain/                 # Camada de Domínio (regras de negócio puras)
+│   │   └── user/
+│   │       ├── entities.py     # entidade User (dataclass)
+│   │       ├── exceptions.py   # exceções do domínio
+│   │       ├── repository.py   # Protocol (interface)
+│   │       └── services.py     # casos de uso
+│   ├── infrastructure/         # Camada de Infraestrutura (adapters)
+│   │   └── database/
+│   │       ├── base.py         # SQLAlchemy Base + mixins
+│   │       ├── session.py      # engine async + sessão
+│   │       ├── models/         # models ORM
+│   │       └── repositories/   # implementações dos repositórios
+│   ├── bootstrap.py            # cria superusuário inicial
+│   └── main.py                 # application factory
+├── alembic/                    # migrations
+├── tests/                      # suíte de testes
+├── deploy/                     # templates de deploy (AWS, GCP, Vercel)
+├── .github/                    # workflows, templates, dependabot
+├── docker-compose.yml          # Postgres + API
+├── Dockerfile                  # multi-stage, non-root
+├── pyproject.toml              # Ruff, Black, mypy, pytest, coverage
+├── requirements.txt            # deps de runtime
+├── requirements-dev.txt        # deps de dev
+└── Makefile                    # atalhos de DX
+```
 
-### 🔹 Clientes
-- **Criar cliente:** ``POST /customers/``
-- **Listar clientes:** ``GET /customers/``
-- **Buscar cliente por ID:** ``GET /customers/{customer_id}``
-- **Atualizar cliente:** ``PUT /customers/{customer_id}``
-- **Excluir cliente:** ``DELETE /customers/{customer_id}``
+### Camadas (Dependency Rule)
 
-### 🔹 Atividades
-- **Criar atividade:** ``POST /activities/``
-- **Listar atividades:** ``GET /activities/``
-- **Buscar atividade por ID:** ``GET /activities/{activity_id}``
-- **Atualizar atividade:** ``PUT /activities/{activity_id}``
-- **Excluir atividade:** ``DELETE /activities/{activity_id}``
+```
+       ┌─────────────────────────────────────────┐
+       │  api/  (FastAPI routers, Pydantic DTOs) │
+       └─────────────┬───────────────────────────┘
+                     │ depende de
+       ┌─────────────▼───────────────────────────┐
+       │  domain/  (entities, services, ports)   │
+       └─────────────┬───────────────────────────┘
+                     │ é implementado por
+       ┌─────────────▼───────────────────────────┐
+       │  infrastructure/  (SQLAlchemy adapters) │
+       └─────────────────────────────────────────┘
+
+  core/ é transversal (config, security, logging) e não importa
+  nada das outras camadas — pode ser usado por todas.
+```
+
+A regra é simples: **o domínio não conhece SQLAlchemy nem FastAPI**.
+A `infrastructure` implementa os contratos do domínio. A `api` orquestra
+chamando os serviços do domínio com seus adapters injetados.
 
 ---
 
-## 🔑 Autenticação e Segurança
+## 🔧 Variáveis de ambiente
 
-#### A API utiliza OAuth2 com JWT (JSON Web Token) para autenticação.
+Veja [`.env.example`](.env.example) — está documentado linha a linha.
+Principais:
 
-1. Para autenticar, faça login enviando um ``POST`` para ``/auth/token`` com:
-```bash
+| Variável                       | Default                   | Função                                              |
+|--------------------------------|---------------------------|-----------------------------------------------------|
+| `APP_ENV`                      | `development`             | `development` \| `testing` \| `production`           |
+| `APP_DEBUG`                    | `false`                   | Liga modo debug                                     |
+| `POSTGRES_HOST`                | `localhost`               | Use `postgres` se a API roda dentro do compose       |
+| `POSTGRES_USER`                | `admin`                   | Usuário do Postgres                                 |
+| `POSTGRES_PASSWORD`            | `admin`                   | Senha do Postgres (**troque em produção**)          |
+| `POSTGRES_DB`                  | `webapi_start`            | Nome do database                                    |
+| `SECRET_KEY`                   | —                         | **Obrigatório.** Gere com `secrets.token_urlsafe`   |
+| `ACCESS_TOKEN_EXPIRE_MINUTES`  | `30`                      | Validade do JWT                                     |
+| `CORS_ORIGINS`                 | `http://localhost:3000`   | Origens permitidas (CSV)                            |
+| `RATE_LIMIT_PER_MINUTE`        | `60`                      | Requests/minuto por IP                              |
+| `LOG_LEVEL`                    | `INFO`                    | Nível mínimo de logs                                |
+| `LOG_JSON`                     | `false`                   | `true` em produção para logs estruturados           |
+| `FIRST_SUPERUSER_EMAIL`        | `admin@example.com`       | Usuário admin criado pelo `make seed`               |
+| `FIRST_SUPERUSER_PASSWORD`     | `Admin@123`               | Senha do admin (**troque em produção**)             |
+
+---
+
+## 📡 Endpoints
+
+Todos versionados sob `/api/v1`. Endpoints protegidos exigem `Authorization: Bearer <jwt>`.
+
+### Health
+
+| Método | Rota                 | Descrição                          |
+|--------|----------------------|-------------------------------------|
+| GET    | `/api/v1/health`     | Status geral + check do banco       |
+| GET    | `/api/v1/health/live`| Liveness probe (k8s)                |
+| GET    | `/api/v1/health/ready`| Readiness probe (k8s)              |
+
+### Autenticação
+
+| Método | Rota                  | Descrição                                       |
+|--------|------------------------|-------------------------------------------------|
+| POST   | `/api/v1/auth/login`  | Login (form data `username` = email, `password`) |
+
+### Usuários
+
+| Método | Rota                       | Auth   | Descrição                  |
+|--------|----------------------------|--------|----------------------------|
+| GET    | `/api/v1/users/me`         | user   | Dados do usuário atual     |
+| POST   | `/api/v1/users/`           | admin  | Cria um usuário            |
+| GET    | `/api/v1/users/`           | admin  | Lista usuários (paginado)  |
+| GET    | `/api/v1/users/{user_id}`  | admin  | Detalha usuário            |
+| PATCH  | `/api/v1/users/{user_id}`  | admin  | Atualiza usuário           |
+| DELETE | `/api/v1/users/{user_id}`  | admin  | Remove usuário             |
+
+Schema de erro padronizado:
+
+```json
 {
-  "username": "usuario@example.com",
-  "password": "sua_senha"
+  "code": "user_not_found",
+  "message": "Usuário não encontrado",
+  "details": null
 }
 ```
 
-2. Use o token JWT recebido para acessar os endpoints protegidos:
-```bash
-curl -H "Authorization: Bearer <TOKEN>" http://localhost:8000/users/
+---
+
+## 🛠️ Comandos do Makefile
+
+```text
+make help          Mostra essa ajuda
+make install       Cria venv e instala dependências (dev)
+make dev           Sobe a API com hot-reload
+make run           Sobe a API em modo produção (sem reload)
+make test          Roda a suíte de testes com cobertura
+make lint          Lint com Ruff
+make format        Formata com Ruff + Black
+make typecheck     Verifica tipos com mypy
+make check         lint + typecheck + testes (CI local)
+make db-up         Sobe somente o Postgres
+make db-down       Para o Postgres
+make db-logs       Logs do Postgres
+make migrate       Aplica migrations
+make migration m="msg"   Gera nova migration autogerada
+make seed          Cria o superusuário inicial
+make docker-build  Build da imagem da API
+make docker-up     Sobe stack completa (Postgres + API)
+make docker-down   Derruba a stack completa
+make clean         Limpa caches e artefatos
 ```
 
 ---
 
-## 🛠️ Contribuição
+## 🧪 Testes & qualidade
 
-Se quiser contribuir com melhorias, siga estas etapas:
+```bash
+make check     # lint + types + testes (o que o CI roda)
+make test      # só testes com cobertura
+```
 
-- Fork o repositório
-- Crie um ***branch*** (```git checkout -b feature/nova-feature```)
-- ***Commit*** suas alterações (``git commit -m 'Adiciona nova feature``)
-- ***Push*** para o branch (``git push origin feature/nova-feature``)
-- Abra um ***Pull Request***
+A suíte roda contra **SQLite em memória** via `aiosqlite` — não precisa de Docker
+local para `pytest`. Cobertura mínima configurada em **70%** no `pyproject.toml`.
+
+Hooks de pre-commit:
+
+```bash
+pre-commit install
+pre-commit run --all-files
+```
+
+---
+
+## 🔐 Segurança
+
+| Controle                          | Status |
+|------------------------------------|:------:|
+| Hashing de senha com Argon2id      | ✅     |
+| JWT assinado HS256 (RS256 opcional)| ✅     |
+| Cabeçalhos OWASP (HSTS, X-Frame…)  | ✅     |
+| CORS restrito por lista de origens | ✅     |
+| Rate limiting por IP               | ✅     |
+| RBAC (role `admin`)                | ✅     |
+| Imagem Docker não-root             | ✅     |
+| `bandit` SAST no CI                | ✅     |
+| `pip-audit` para CVEs no CI        | ✅     |
+| `gitleaks` para secrets no pre-commit/CI | ✅ |
+| Validação rigorosa via Pydantic    | ✅     |
+| Erros consistentes sem vazar stack | ✅     |
+
+Veja [SECURITY.md](SECURITY.md) para reportar vulnerabilidades.
+
+---
+
+## 🚢 Deploy
+
+Templates prontos em [`deploy/`](deploy/README.md):
+
+| Provedor          | Indicado para                                | Workflow                                 |
+|-------------------|----------------------------------------------|-------------------------------------------|
+| Google Cloud Run  | Scale-to-zero, MVPs, custo baixo             | [.github/workflows/deploy-cloud-run.yml](.github/workflows/deploy-cloud-run.yml) |
+| AWS ECS Fargate   | Empresas já na AWS, VPC privada, ALB         | [.github/workflows/deploy-aws-ecs.yml](.github/workflows/deploy-aws-ecs.yml) |
+| Vercel            | Demos rápidas (limitações descritas)         | [.github/workflows/deploy-vercel.yml](.github/workflows/deploy-vercel.yml) |
+
+Cada workflow vem com `if: false` por padrão para evitar deploy acidental.
+Siga o README do diretório `deploy/<provedor>/` para configurar e ativar.
+
+---
+
+## 🏷️ Versionamento
+
+Este projeto segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
+
+- `MAJOR.MINOR.PATCH`
+- Releases automáticas via tag `vX.Y.Z` (workflow `.github/workflows/release.yml`).
+- Mudanças notáveis em [CHANGELOG.md](CHANGELOG.md).
+
+Versão atual: **v1.0.0**.
 
 ---
 
 ## 📜 Licença
 
-Este projeto está licenciado sob a MIT License - consulte o arquivo LICENSE para mais detalhes.
+[MIT](LICENSE) © 2025 Matheus de Lima Rios.
 
 ---
 
-## 📩 Contato
+## 👤 Autor
 
-- Desenvolvido por: Matheus de Lima Rios
-- Site: https://agenciatechcoffee.com
+**Matheus de Lima Rios**
 
----
+- ✉️ limariosprofissional@gmail.com
+- 🌐 [agenciatechcoffee.com](https://agenciatechcoffee.com)
+- 💼 [LinkedIn](https://www.linkedin.com/in/limarios/)
 
-## 🔹 **Como usar o `README.md`**
-
-1. **Expanda a documentação** conforme novas funcionalidades forem adicionadas.
-2. **Adicione mais detalhes sobre os endpoints** conforme necessário.
-3. **Mantenha atualizado** com mudanças na API.
-
-Esse modelo segue **boas práticas** para documentação de APIs e pode ser facilmente mantido e atualizado conforme a API evolui. 
+> Este projeto é open source e serve como base para acelerar a construção de APIs Python
+> profissionais. Sinta-se à vontade para usar, adaptar e contribuir.

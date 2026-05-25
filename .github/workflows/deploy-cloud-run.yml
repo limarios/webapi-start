@@ -1,0 +1,78 @@
+# =============================================================================
+# Deploy template — Google Cloud Run
+# -----------------------------------------------------------------------------
+# Este workflow é um MOLDE. Para ativá-lo:
+#   1) Crie um projeto no GCP e habilite Cloud Run, Artifact Registry e IAM.
+#   2) Crie uma Service Account com roles:
+#        - roles/run.admin
+#        - roles/artifactregistry.writer
+#        - roles/iam.serviceAccountUser
+#   3) Configure Workload Identity Federation (recomendado) ou gere uma JSON key.
+#   4) Defina os secrets no GitHub:
+#        - GCP_PROJECT_ID
+#        - GCP_REGION                (ex: southamerica-east1)
+#        - GCP_SERVICE_ACCOUNT       (email da SA)
+#        - GCP_WORKLOAD_IDENTITY_PROVIDER  (recomendado em vez de SA key)
+#        - APP_SECRET_KEY            (SECRET_KEY usada pela aplicação)
+#        - DATABASE_URL              (Cloud SQL ou outro Postgres gerenciado)
+#   5) Remova o `if: false` abaixo para habilitar o deploy automático.
+# =============================================================================
+
+name: Deploy · Cloud Run
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    if: false  # ← Remova esta linha quando os secrets estiverem configurados.
+    name: Deploy to Cloud Run
+    runs-on: ubuntu-latest
+    environment: production
+
+    env:
+      SERVICE_NAME: webapi-start
+      REGION: ${{ secrets.GCP_REGION }}
+      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      IMAGE_URI: ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/webapi-start/api:${{ github.sha }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Auth to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker auth
+        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
+
+      - name: Build & push image
+        run: |
+          docker build -t ${{ env.IMAGE_URI }} .
+          docker push ${{ env.IMAGE_URI }}
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --image ${{ env.IMAGE_URI }} \
+            --region ${{ env.REGION }} \
+            --platform managed \
+            --allow-unauthenticated \
+            --port 8000 \
+            --memory 512Mi \
+            --cpu 1 \
+            --min-instances 0 \
+            --max-instances 10 \
+            --set-env-vars APP_ENV=production,LOG_JSON=true \
+            --set-secrets SECRET_KEY=APP_SECRET_KEY:latest,DATABASE_URL=DATABASE_URL:latest

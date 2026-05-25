@@ -1,0 +1,77 @@
+# =============================================================================
+# Deploy template — AWS ECS Fargate
+# -----------------------------------------------------------------------------
+# Este workflow é um MOLDE. Para ativá-lo:
+#   1) Crie um cluster ECS Fargate e um repositório ECR `webapi-start`.
+#   2) Crie a Task Definition inicial (arquivo deploy/aws/task-definition.json
+#      existe como referência neste repo).
+#   3) Crie uma role IAM `GitHubActions-ECS-Deploy` com permissões mínimas
+#      (ECR push/pull, ECS update-service, IAM PassRole para a task role).
+#   4) Configure OIDC entre GitHub e AWS (recomendado em vez de access keys).
+#   5) Defina os secrets no GitHub:
+#        - AWS_REGION                (ex: sa-east-1)
+#        - AWS_ROLE_ARN              (arn:aws:iam::<acct>:role/GitHubActions-ECS-Deploy)
+#        - AWS_ECR_REPOSITORY        (webapi-start)
+#        - AWS_ECS_CLUSTER           (webapi-start-cluster)
+#        - AWS_ECS_SERVICE           (webapi-start-service)
+#        - AWS_TASK_DEFINITION_NAME  (webapi-start)
+#   6) Remova o `if: false` abaixo para habilitar o deploy automático.
+# =============================================================================
+
+name: Deploy · AWS ECS
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    if: false  # ← Remova esta linha quando os secrets estiverem configurados.
+    name: Deploy to AWS ECS Fargate
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag and push image to ECR
+        env:
+          REGISTRY: ${{ steps.ecr.outputs.registry }}
+          REPO: ${{ secrets.AWS_ECR_REPOSITORY }}
+          TAG: ${{ github.sha }}
+        run: |
+          docker build -t $REGISTRY/$REPO:$TAG -t $REGISTRY/$REPO:latest .
+          docker push $REGISTRY/$REPO:$TAG
+          docker push $REGISTRY/$REPO:latest
+          echo "IMAGE=$REGISTRY/$REPO:$TAG" >> $GITHUB_ENV
+
+      - name: Render new task definition
+        id: render
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: deploy/aws/task-definition.json
+          container-name: api
+          image: ${{ env.IMAGE }}
+
+      - name: Deploy ECS service
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ${{ steps.render.outputs.task-definition }}
+          cluster: ${{ secrets.AWS_ECS_CLUSTER }}
+          service: ${{ secrets.AWS_ECS_SERVICE }}
+          wait-for-service-stability: true

@@ -1,62 +1,59 @@
-version: '3.8'
+name: webapi-start
 
 services:
-  mysql_db:
-    image: mysql:8.4
-    container_name: mysql_db
-    restart: always
+  postgres:
+    image: postgres:16-alpine
+    container_name: webapi_start_postgres
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword  # 🔥 Defina a mesma senha do .env
-      MYSQL_DATABASE: automation_alcance
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpassword
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin}
+      POSTGRES_DB: ${POSTGRES_DB:-webapi_start}
+      PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - "3306:3306"
+      - "${POSTGRES_PORT:-5432}:5432"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql/data
     networks:
-      - app_network
+      - webapi_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-admin} -d ${POSTGRES_DB:-webapi_start}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
-  fastapi_app:
-    build: .
-    container_name: fastapi_app
-    restart: always
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webapi_start_api
+    restart: unless-stopped
     depends_on:
-      - mysql_db
-      - prometheus
+      postgres:
+        condition: service_healthy
     environment:
-      DATABASE_URL: mysql+asyncmy://root:rootpassword@mysql_db:3306/automation_alcance  # 🔥 Atualizado
+      APP_ENV: ${APP_ENV:-development}
+      APP_DEBUG: ${APP_DEBUG:-true}
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin}
+      POSTGRES_DB: ${POSTGRES_DB:-webapi_start}
+      SECRET_KEY: ${SECRET_KEY}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
     ports:
-      - "8000:8000"
+      - "${APP_PORT:-8000}:8000"
     networks:
-      - app_network
-
-  prometheus:
-    image: prom/prometheus
-    container_name: prometheus
-    restart: always
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
-    networks:
-      - app_network
-
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    restart: always
-    ports:
-      - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin  # 🔥 Senha do admin do Grafana
-    depends_on:
-      - prometheus
-    networks:
-      - app_network
+      - webapi_net
+    profiles:
+      - full
 
 volumes:
-  mysql_data:
+  postgres_data:
+    name: webapi_start_postgres_data
 
 networks:
-  app_network:
+  webapi_net:
+    name: webapi_start_net

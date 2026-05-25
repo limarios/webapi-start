@@ -1,8 +1,0 @@
-global:
-  scrape_interval: 5s  # Coleta métricas a cada 5 segundos
-
-scrape_configs:
-  - job_name: "fastapi"
-    metrics_path: "/metrics"
-    static_configs:
-      - targets: ["fastapi_app:8000"]

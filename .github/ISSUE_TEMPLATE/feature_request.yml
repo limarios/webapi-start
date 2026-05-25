@@ -1,0 +1,38 @@
+name: ✨ Feature Request
+description: Propor uma nova funcionalidade
+title: "[Feature] "
+labels: ["enhancement", "triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Qual problema essa feature resolve?
+      placeholder: "Hoje, para listar usuários inativos preciso fazer..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solução proposta
+      placeholder: "Adicionar query string ?is_active=false ao GET /users..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativas consideradas
+      placeholder: "Filtrar no cliente, criar endpoint separado, etc."
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Prioridade
+      options:
+        - Baixa
+        - Média
+        - Alta
+        - Crítica
+    validations:
+      required: true

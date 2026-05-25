@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🔐 Vulnerabilidade de segurança
+    url: https://github.com/limarios/webapi-start/security/advisories/new
+    about: Use o canal privado descrito em SECURITY.md em vez de uma issue pública.
+  - name: 💬 Discussão / dúvida
+    url: https://github.com/limarios/webapi-start/discussions
+    about: Para perguntas e ideias, use as Discussions.

@@ -1,0 +1,50 @@
+# =============================================================================
+# Deploy template — Vercel (Serverless Functions)
+# -----------------------------------------------------------------------------
+# IMPORTANTE: A Vercel é otimizada para frontends e funções edge/serverless.
+# Para uma API FastAPI completa com Postgres persistente, prefira Cloud Run
+# ou AWS ECS. Este workflow está pronto caso você queira publicar a API como
+# functions (vercel/python). Veja `deploy/vercel/README.md` para limitações.
+#
+# Para ativar:
+#   1) Crie um projeto na Vercel e conecte ao repositório.
+#   2) Em Settings > Tokens crie um token e adicione como secret:
+#        - VERCEL_TOKEN
+#        - VERCEL_ORG_ID         (vercel.com/<org>/settings — "Team ID")
+#        - VERCEL_PROJECT_ID     (Project Settings → "Project ID")
+#   3) Remova o `if: false` para habilitar o deploy automático.
+# =============================================================================
+
+name: Deploy · Vercel
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    if: false  # ← Remova esta linha quando os secrets estiverem configurados.
+    name: Deploy to Vercel
+    runs-on: ubuntu-latest
+    environment: production
+
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel environment
+        run: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+
+      - name: Build
+        run: vercel build --prod --token=$VERCEL_TOKEN
+
+      - name: Deploy
+        run: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN

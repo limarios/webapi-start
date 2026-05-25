@@ -1,0 +1,51 @@
+name: 🐛 Bug Report
+description: Reportar um defeito observável no projeto
+title: "[Bug] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por reportar! Quanto mais informação, mais rápido resolvemos.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição
+      description: O que aconteceu? Qual era o comportamento esperado?
+      placeholder: "Ao chamar POST /api/v1/users/, recebo 500 em vez de 201..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Passos para reproduzir
+      placeholder: |
+        1. ...
+        2. ...
+        3. Resultado: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / stack trace
+      render: shell
+
+  - type: input
+    id: version
+    attributes:
+      label: Versão / commit
+      placeholder: "v1.0.0 ou sha abcdef0"
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Ambiente
+      placeholder: "Python 3.11.7 · Docker 24 · Windows 11"
+    validations:
+      required: true
