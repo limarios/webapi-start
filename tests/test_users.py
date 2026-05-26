@@ -7,9 +7,7 @@ from httpx import AsyncClient
 
 
 @pytest.mark.asyncio
-async def test_create_user_requires_admin(
-    client: AsyncClient, regular_user
-) -> None:
+async def test_create_user_requires_admin(client: AsyncClient, regular_user) -> None:
     # Login como usuário comum
     login = await client.post(
         "/api/v1/auth/login",

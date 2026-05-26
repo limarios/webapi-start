@@ -56,6 +56,8 @@ ignore = [
     "E501",  # tamanho de linha — Black trata
     "B008",  # function call in default argument (FastAPI usa Depends())
     "S101",  # assert em testes é ok
+    "S104",  # bind 0.0.0.0 — necessário para rodar em containers (Docker/ECS/Cloud Run)
+    "S105",  # "bearer" (OAuth2 spec) e defaults de dev em config.py são falsos positivos
 ]
 
 [tool.ruff.lint.per-file-ignores]

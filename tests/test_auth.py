@@ -45,9 +45,7 @@ async def test_me_requires_authentication(client: AsyncClient) -> None:
 
 
 @pytest.mark.asyncio
-async def test_me_returns_authenticated_user(
-    client: AsyncClient, admin_user, auth_headers
-) -> None:
+async def test_me_returns_authenticated_user(client: AsyncClient, admin_user, auth_headers) -> None:
     response = await client.get("/api/v1/users/me", headers=auth_headers)
     assert response.status_code == 200
     body = response.json()

@@ -25,7 +25,7 @@ _settings = get_settings()
 )
 @limiter.limit(f"{_settings.LOGIN_RATE_LIMIT_PER_MINUTE}/minute")
 async def login(
-    request: Request,  # noqa: ARG001 — exigido pelo SlowAPI para rate limit
+    request: Request,
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     service: UserServiceDep,
 ) -> TokenResponse:

@@ -62,7 +62,7 @@ async def get_current_user(
             detail="Subject inválido no token",
         ) from exc
 
-    user = await service._repo.get_by_id(user_id)  # noqa: SLF001 — acesso intencional
+    user = await service._repo.get_by_id(user_id)
     if not user or not user.is_active:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
