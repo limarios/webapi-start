@@ -16,9 +16,20 @@ from app.domain.user.entities import UserRole
 # ──────────────────────────────────────────────────────────────────────────────
 
 _COMMON_PASSWORDS = {
-    "password", "12345678", "123456789", "1234567890", "qwerty12",
-    "admin123", "admin@123", "password1", "letmein1", "welcome1",
-    "iloveyou", "abc12345", "monkey12", "dragon12",
+    "password",
+    "12345678",
+    "123456789",
+    "1234567890",
+    "qwerty12",
+    "admin123",
+    "admin@123",
+    "password1",
+    "letmein1",
+    "welcome1",
+    "iloveyou",
+    "abc12345",
+    "monkey12",
+    "dragon12",
 }
 
 _HAS_LOWER = re.compile(r"[a-z]")

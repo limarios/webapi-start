@@ -24,10 +24,28 @@ class JsonFormatter(logging.Formatter):
         if record.exc_info:
             payload["exc_info"] = self.formatException(record.exc_info)
         for key, value in record.__dict__.items():
-            if key in {"args", "msg", "levelname", "levelno", "name", "exc_info", "exc_text",
-                       "stack_info", "lineno", "funcName", "created", "msecs", "relativeCreated",
-                       "thread", "threadName", "processName", "process", "pathname", "filename",
-                       "module"}:
+            if key in {
+                "args",
+                "msg",
+                "levelname",
+                "levelno",
+                "name",
+                "exc_info",
+                "exc_text",
+                "stack_info",
+                "lineno",
+                "funcName",
+                "created",
+                "msecs",
+                "relativeCreated",
+                "thread",
+                "threadName",
+                "processName",
+                "process",
+                "pathname",
+                "filename",
+                "module",
+            }:
                 continue
             payload[key] = value
         return json.dumps(payload, ensure_ascii=False)

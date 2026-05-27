@@ -12,7 +12,7 @@ from slowapi.util import get_remote_address
 from app.core.config import get_settings
 
 
-def _key_func(request) -> str:  # noqa: ANN001
+def _key_func(request) -> str:
     """Resolve o IP do cliente respeitando X-Forwarded-For.
 
     Quando a API está atrás de proxy (ex.: Cloud Run, ALB, Vercel),

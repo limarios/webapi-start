@@ -72,7 +72,7 @@ class Settings(BaseSettings):
         )
 
     @model_validator(mode="after")
-    def enforce_production_safety(self) -> "Settings":
+    def enforce_production_safety(self) -> Settings:
         """Validações que só fazem sentido quando APP_ENV=production."""
         if self.APP_ENV != "production":
             return self
