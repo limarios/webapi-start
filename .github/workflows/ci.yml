@@ -59,6 +59,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          # Gitleaks escaneia `base^..head`; com o fetch-depth 1 default o
+          # commit-pai nao existe no runner e o scan falha com "ambiguous argument".
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v6
