@@ -1,5 +1,5 @@
 # Dependências de runtime — instaladas dentro da imagem Docker e no venv local.
-fastapi==0.115.7
+fastapi==0.133.0
 uvicorn[standard]==0.34.0
 
 # Banco de dados
@@ -14,12 +14,12 @@ pydantic-settings==2.7.1
 email-validator==2.2.0
 
 # Segurança
-PyJWT[crypto]==2.10.1
+PyJWT[crypto]==2.13.0
 passlib[argon2,bcrypt]==1.7.4
 argon2-cffi==23.1.0
 
 # Multipart (OAuth2 password flow)
-python-multipart==0.0.20
+python-multipart==0.0.31
 
 # Rate limit
 slowapi==0.1.9

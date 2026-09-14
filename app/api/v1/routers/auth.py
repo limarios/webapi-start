@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Request, status
+from fastapi import APIRouter, Depends, Request, Response, status
 from fastapi.security import OAuth2PasswordRequestForm
 
 from app.api.v1.dependencies import UserServiceDep
@@ -26,6 +26,7 @@ _settings = get_settings()
 @limiter.limit(f"{_settings.LOGIN_RATE_LIMIT_PER_MINUTE}/minute")
 async def login(
     request: Request,
+    response: Response,
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     service: UserServiceDep,
 ) -> TokenResponse:
@@ -33,6 +34,8 @@ async def login(
 
     O campo `username` do formulário deve receber o e-mail do usuário.
     Rate limit dedicado é aplicado (default 5 tentativas/minuto/IP).
+    `response` é exigido pelo SlowAPI (`headers_enabled=True`) para injetar
+    os cabeçalhos `X-RateLimit-*` quando o endpoint devolve um modelo.
     """
     user = await service.authenticate(form_data.username, form_data.password)
     access_token = create_access_token(
