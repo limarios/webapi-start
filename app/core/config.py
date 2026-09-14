@@ -6,7 +6,7 @@ from functools import lru_cache
 from typing import Literal
 from urllib.parse import urlparse
 
-from pydantic import Field, PostgresDsn, field_validator, model_validator
+from pydantic import AnyUrl, Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 JwtAlgorithm = Literal["HS256", "HS384", "HS512", "RS256", "RS384", "RS512", "ES256", "ES384"]
@@ -36,7 +36,7 @@ class Settings(BaseSettings):
     POSTGRES_USER: str = "admin"
     POSTGRES_PASSWORD: str = "admin"
     POSTGRES_DB: str = "webapi_start"
-    DATABASE_URL: PostgresDsn | None = None
+    DATABASE_URL: AnyUrl | None = None  # AnyUrl (não PostgresDsn): testes usam sqlite+aiosqlite
     POSTGRES_SSL_REQUIRED: bool = False  # auto-ativado quando APP_ENV=production
 
     # Segurança

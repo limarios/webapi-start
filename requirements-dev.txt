@@ -16,3 +16,7 @@ faker==33.3.1
 
 # Hooks
 pre-commit==4.0.1
+
+# Segurança (usados pelo job `quality` do CI: bandit informativo, pip-audit bloqueante)
+bandit==1.9.4
+pip-audit==2.10.1

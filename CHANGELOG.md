@@ -7,6 +7,15 @@ projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Não lançado]
 
+### Corrigido
+
+- **CI**: `pip-audit` e `bandit` passam a ser instalados via `requirements-dev.txt` (o job `quality` falhava com `exit 127` porque nenhum step os instalava).
+- **Deps**: remediação das CVEs apontadas pelo `pip-audit --strict` — `PyJWT` 2.10.1→2.13.0, `python-multipart` 0.0.20→0.0.31 e `fastapi` 0.115.7→0.133.0 (primeira versão sem o teto `starlette<1.0`, liberando `starlette>=1.3.1`).
+- **Settings**: `DATABASE_URL` aceita qualquer esquema (`AnyUrl`) — `PostgresDsn` rejeitava o `sqlite+aiosqlite` usado pela suíte de testes.
+- **DB**: `pool_size`/`max_overflow` só são passados ao engine quando o dialeto não é SQLite (o `StaticPool` os rejeita).
+- **Auth**: `/auth/login` recebe `response: Response`, exigido pelo SlowAPI com `headers_enabled=True` para injetar `X-RateLimit-*`.
+- **Testes**: `LOGIN_RATE_LIMIT_PER_MINUTE` elevado no ambiente de teste e e-mails das fixtures trocados de `.local` (TLD reservado, recusado pelo `email-validator`) para `example.com`.
+
 ### Planejado
 
 - Refresh token endpoint com rotation + reuse detection

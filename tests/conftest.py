@@ -19,6 +19,7 @@ os.environ.setdefault(
 )
 os.environ.setdefault("DATABASE_URL", "sqlite+aiosqlite:///:memory:")
 os.environ.setdefault("RATE_LIMIT_PER_MINUTE", "1000")
+os.environ.setdefault("LOGIN_RATE_LIMIT_PER_MINUTE", "1000")
 
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
@@ -76,7 +77,7 @@ async def client(db_session) -> AsyncIterator[AsyncClient]:
 @pytest_asyncio.fixture
 async def admin_user(db_session) -> UserModel:
     user = UserModel(
-        email="admin@test.local",
+        email="admin@example.com",
         full_name="Admin Test",
         hashed_password=hash_password("Admin@Pass123!"),
         role=UserRole.ADMIN.value,
@@ -91,7 +92,7 @@ async def admin_user(db_session) -> UserModel:
 @pytest_asyncio.fixture
 async def regular_user(db_session) -> UserModel:
     user = UserModel(
-        email="user@test.local",
+        email="user@example.com",
         full_name="Regular User",
         hashed_password=hash_password("UserPass@2024!"),
         role=UserRole.USER.value,
