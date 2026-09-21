@@ -22,4 +22,4 @@ argon2-cffi==23.1.0
 python-multipart==0.0.31
 
 # Rate limit
-slowapi==0.1.9
+slowapi==0.1.10
