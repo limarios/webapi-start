@@ -1,25 +1,25 @@
 # Dependências de runtime — instaladas dentro da imagem Docker e no venv local.
-fastapi==0.133.0
-uvicorn[standard]==0.34.0
+fastapi==0.162.0
+uvicorn[standard]==0.54.0
 
 # Banco de dados
-sqlalchemy[asyncio]==2.0.37
-asyncpg==0.31.0
-psycopg2-binary==2.9.10
-alembic==1.14.0
+sqlalchemy[asyncio]==2.1.6
+asyncpg==0.32.0
+psycopg2-binary==2.9.13
+alembic==1.20.1
 
 # Configuração e validação
-pydantic==2.13.5
+pydantic==2.14.2
 pydantic-settings==2.16.2
 email-validator==2.3.0
 
 # Segurança
-PyJWT[crypto]==2.15.0
+PyJWT[crypto]==2.15.1
 passlib[argon2,bcrypt]==1.7.4
 argon2-cffi==23.1.0
 
 # Multipart (OAuth2 password flow)
-python-multipart==0.0.31
+python-multipart==0.0.33
 
 # Rate limit
 slowapi==0.1.10

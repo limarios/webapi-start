@@ -2,7 +2,7 @@
 -r requirements.txt
 
 # Lint / format / types
-ruff==0.16.7
+ruff==0.17.3
 black==26.10.1
 mypy==1.14.1
 
@@ -11,11 +11,11 @@ pytest==8.3.4
 pytest-asyncio==0.25.2
 pytest-cov==7.1.0
 httpx==0.28.1
-aiosqlite==0.20.0
+aiosqlite==0.22.1
 faker==33.3.1
 
 # Hooks
-pre-commit==4.0.1
+pre-commit==4.7.0
 
 # Segurança (usados pelo job `quality` do CI: bandit informativo, pip-audit bloqueante)
 bandit==1.9.4
