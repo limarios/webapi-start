@@ -1,33 +1,33 @@
 version: 2
 updates:
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
+  # Dependências Python (requirements.txt e requirements-dev.txt na raiz)
+  - package-ecosystem: pip
+    directory: /
+    schedule: {interval: weekly, day: monday, time: "06:00", timezone: America/Sao_Paulo}
     open-pull-requests-limit: 5
-    commit-message:
-      prefix: "chore(deps)"
-    labels:
-      - "dependencies"
-      - "python"
+    labels: [dependencies, python]
+    commit-message: {prefix: chore, prefix-development: chore, include: scope}
+    groups:
+      minor-patch: {applies-to: version-updates, update-types: [minor, patch]}
+      security: {applies-to: security-updates, patterns: ["*"], update-types: [minor, patch]}
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "monthly"
-    commit-message:
-      prefix: "chore(ci)"
-    labels:
-      - "dependencies"
-      - "github-actions"
+  # Imagem base do Dockerfile
+  - package-ecosystem: docker
+    directory: /
+    schedule: {interval: monthly}
+    labels: [dependencies, docker]
+    commit-message: {prefix: chore, include: scope}
+    ignore:
+      # A linha do Python (3.13) é decisão de padronização, alinhada a
+      # .python-version e ao CI. Troca de linha (3.14, 3.15...) é PR humano.
+      - dependency-name: python
+        update-types: [version-update:semver-major, version-update:semver-minor]
 
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "monthly"
-    commit-message:
-      prefix: "chore(docker)"
-    labels:
-      - "dependencies"
-      - "docker"
+  # Actions dos workflows (pinadas por SHA; o Dependabot atualiza SHA + comentário)
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: {interval: monthly}
+    labels: [dependencies, ci]
+    commit-message: {prefix: ci, include: scope}
+    groups:
+      actions: {patterns: ["*"]}

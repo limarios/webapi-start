@@ -8,7 +8,7 @@ version = "1.1.0"
 description = "API base profissional construída em FastAPI com Clean Architecture e DDD."
 readme = "README.md"
 license = { file = "LICENSE" }
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 authors = [
     { name = "Matheus de Lima Rios", email = "limariosprofissional@gmail.com" },
 ]
@@ -19,8 +19,8 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Software Development :: Libraries :: Application Frameworks",
 ]
 
@@ -34,7 +34,7 @@ Issues = "https://github.com/limarios/webapi-start/issues"
 # ──────────────────────────────────────────────────────────────────────────────
 [tool.ruff]
 line-length = 100
-target-version = "py311"
+target-version = "py312"
 extend-exclude = ["alembic/versions"]
 
 [tool.ruff.lint]
@@ -73,14 +73,14 @@ combine-as-imports = true
 # ──────────────────────────────────────────────────────────────────────────────
 [tool.black]
 line-length = 100
-target-version = ["py311"]
+target-version = ["py312", "py313"]
 extend-exclude = "alembic/versions"
 
 # ──────────────────────────────────────────────────────────────────────────────
 # mypy — static type checking
 # ──────────────────────────────────────────────────────────────────────────────
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 strict = false
 warn_redundant_casts = true
 warn_unused_ignores = true
