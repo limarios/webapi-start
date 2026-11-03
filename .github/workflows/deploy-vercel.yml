@@ -27,6 +27,7 @@ jobs:
     if: false  # ← Remova esta linha quando os secrets estiverem configurados.
     name: Deploy to Vercel
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment: production
 
     env:
@@ -35,10 +36,12 @@ jobs:
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        # Versão fixada: `@latest` tornava o deploy não reprodutível. Atualize
+        # conscientemente (npm view vercel version).
+        run: npm install --global vercel@65.10.0
 
       - name: Pull Vercel environment
         run: vercel pull --yes --environment=production --token=$VERCEL_TOKEN

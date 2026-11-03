@@ -27,7 +27,6 @@ permissions:
   security-events: write
 
 env:
-  PYTHON_VERSION: "3.12"
   PIP_DISABLE_PIP_VERSION_CHECK: "1"
   PIP_NO_PYTHON_VERSION_WARNING: "1"
   POSTGRES_USER: ci
@@ -41,6 +40,7 @@ jobs:
     # se ruff/black/test quebrarem — mypy e bandit ficam com continue-on-error
     # porque sao informativos (gradual typing / SAST com falsos positivos).
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     services:
       postgres:
@@ -58,16 +58,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # Gitleaks escaneia `base^..head`; com o fetch-depth 1 default o
           # commit-pai nao existe no runner e o scan falha com "ambiguous argument".
           fetch-depth: 0
 
       - name: Setup Python
-        uses: actions/setup-python@v7
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          python-version-file: .python-version
           cache: "pip"
           cache-dependency-path: |
             requirements.txt
@@ -88,6 +88,9 @@ jobs:
       - name: Typecheck (mypy, informativo)
         # Gate informativo ate limpeza progressiva da base. Remover
         # continue-on-error quando mypy estiver verde (issue dedicada).
+        # Nota: com python_version=3.11 o mypy abortava ("Found 1 error in 1
+        # file") ao ler `deprecated/sphinx.py`, que usa a sintaxe `type X = ...`
+        # (PEP 695, 3.12+). O pyproject passou a declarar 3.12.
         continue-on-error: true
         run: mypy app
 
@@ -122,14 +125,14 @@ jobs:
         run: pytest --cov=app --cov-report=xml --cov-report=term
 
       - name: Upload coverage artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: coverage-report
           path: coverage.xml
           retention-days: 7
 
       - name: Gitleaks (secrets scan)
-        uses: gitleaks/gitleaks-action@v3
+        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -144,15 +147,16 @@ jobs:
     # e cache de layers proprio. Roda apos quality passar.
     name: Build Docker image
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     needs: quality
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
 
       - name: Build image (no push)
-        uses: docker/build-push-action@v7
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
         with:
           context: .
           push: false

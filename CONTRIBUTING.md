@@ -44,7 +44,7 @@ Exemplos:
 
 ## Estilo de código
 
-- Python 3.11+, type hints sempre que possível.
+- Python 3.12+ (`.python-version` fixa 3.13), type hints sempre que possível.
 - Indentação: 4 espaços (configurado no `.editorconfig`).
 - Limite de linha: 100 caracteres.
 - Lint: `ruff` (`make lint`).

@@ -5,7 +5,7 @@
 **Template profissional de API em FastAPI** — Clean Architecture, DDD, PostgreSQL, JWT, Docker, CI/CD e deploy multi-cloud.
 
 [![CI](https://img.shields.io/badge/CI-GitHub_Actions-2088FF?logo=github-actions&logoColor=white)](.github/workflows/ci.yml)
-[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.12+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)](Dockerfile)
@@ -53,12 +53,12 @@ reais — não é boilerplate de tutorial.
 
 | Categoria      | Tecnologia                                                              |
 |----------------|--------------------------------------------------------------------------|
-| Linguagem      | Python 3.11+                                                             |
-| Web            | FastAPI 0.115 · Uvicorn                                                  |
+| Linguagem      | Python 3.12+ (CI e imagem Docker em 3.13)                                |
+| Web            | FastAPI 0.133 · Uvicorn                                                  |
 | Banco          | PostgreSQL 16 · SQLAlchemy 2 (async) · asyncpg                           |
 | Migrations     | Alembic                                                                  |
 | Configuração   | Pydantic Settings · `.env`                                               |
-| Segurança      | PyJWT 2.10 · passlib (Argon2id) · SlowAPI (rate limit)                   |
+| Segurança      | PyJWT 2.15 · passlib (Argon2id) · SlowAPI (rate limit)                   |
 | Qualidade      | Ruff · Black · mypy · pre-commit · pytest · httpx                        |
 | Containers     | Docker (multi-stage) · Docker Compose                                    |
 | CI/CD          | GitHub Actions (CI + 3 templates de deploy)                              |
@@ -68,7 +68,7 @@ reais — não é boilerplate de tutorial.
 
 ## ⚡ Quick start
 
-> **Pré-requisitos:** Docker + Docker Compose, Python 3.11+, `make`.
+> **Pré-requisitos:** Docker + Docker Compose, Python 3.12+, `make`.
 
 ```bash
 # 1. Clone

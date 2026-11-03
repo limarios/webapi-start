@@ -7,8 +7,24 @@ projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Não lançado]
 
+### Alterado
+
+- **Python**: mínimo passa a ser 3.12 (`requires-python`, ruff/black/mypy); `.python-version` fixa **3.13**, usado pelo CI, e a imagem Docker sobe de `python:3.11-slim` para `python:3.13-slim`.
+- **CI**: todas as actions pinadas por SHA de commit (tag no comentário), `timeout-minutes` em todos os jobs; `docker/setup-buildx-action` v3→v4 e `aws-actions/configure-aws-credentials` v4→v6 (template ECS).
+- **Deploy Vercel (template)**: CLI fixada em `vercel@65.10.0` em vez de `@latest`.
+- **Dependabot**: pip semanal com grupos minor/patch e de segurança (majors continuam individuais), docker mensal com a linha do Python travada em 3.13, actions mensal agrupado.
+- **pre-commit**: revs de ruff/black alinhadas aos pins de `requirements-dev.txt`; hook `fix-byte-order-marker`.
+- **Deps** (Dependabot, desde a v1.1.0): `PyJWT` 2.13.0→2.15.0 (CVEs apontadas pelo `pip-audit --strict`), `pydantic` 2.10.6→2.13.5, `pydantic-settings` 2.7.1→2.16.2, `email-validator` 2.2.0→2.3.0, `slowapi` 0.1.9→0.1.10, `asyncpg` 0.30.0→0.31.0, `ruff` 0.9.2→0.16.7, `black` 24.10.0→26.10.1, `pytest-cov` 6.0.0→7.1.0; actions `checkout` v7, `setup-python` v7, `upload-artifact` v7, `docker/build-push-action` v7, `gitleaks-action` v3, `google-github-actions/auth` e `setup-gcloud` v3, `action-gh-release` v3.
+
+### Removido
+
+- Workflow `auto-merge-dependabot.yml`: sem branch protection exigindo o CI, o `gh pr merge --auto` mesclava sem gate.
+
 ### Corrigido
 
+- **mypy** (passo informativo): com `python_version = "3.11"` ele abortava com "Found 1 error in 1 file" ao analisar `deprecated/sphinx.py`, que usa a sintaxe `type X = ...` (PEP 695, só 3.12+). Com `python_version = "3.12"` a análise volta a rodar e acusa 6 erros de tipo pré-existentes em 5 arquivos (o passo segue `continue-on-error`; limpeza em issue própria).
+- `.env.example` passa a documentar `POSTGRES_SSL_REQUIRED`, lida por `app/core/config.py`.
+- **Datas das versões**: 1.0.0 e 1.1.0 estavam datadas de jan/2025, mas as tags `v1.0.0` e `v1.1.0` foram criadas em 2026-05-25; as datas abaixo foram alinhadas às tags.
 - **CI**: `pip-audit` e `bandit` passam a ser instalados via `requirements-dev.txt` (o job `quality` falhava com `exit 127` porque nenhum step os instalava).
 - **Deps**: remediação das CVEs apontadas pelo `pip-audit --strict` — `PyJWT` 2.10.1→2.13.0, `python-multipart` 0.0.20→0.0.31 e `fastapi` 0.115.7→0.133.0 (primeira versão sem o teto `starlette<1.0`, liberando `starlette>=1.3.1`).
 - **Settings**: `DATABASE_URL` aceita qualquer esquema (`AnyUrl`) — `PostgresDsn` rejeitava o `sqlite+aiosqlite` usado pela suíte de testes.
@@ -25,7 +41,7 @@ projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - Recovery de senha por e-mail
 - Observabilidade: OpenTelemetry + traces exportados para OTLP
 
-## [1.1.0] — 2025-01-02
+## [1.1.0] — 2026-05-25
 
 Release de hardening de segurança baseada em auditoria pré-deploy.
 **Sem breaking changes funcionais**, mas senhas precisam atender ao novo
@@ -66,7 +82,7 @@ se estiver usando o default.
 - Versão `app.APP_VERSION` e `pyproject.toml` bumpadas para 1.1.0.
 - `tests/conftest.py` e `tests/test_*.py` atualizados com senhas que respeitam a nova regra de complexidade.
 
-## [1.0.0] — 2025-01-01
+## [1.0.0] — 2026-05-25
 
 ### Adicionado
 
