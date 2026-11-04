@@ -346,7 +346,7 @@ Versão atual: **v1.1.0** — release de hardening de segurança (CVE patch + OW
 
 ## 📜 Licença
 
-[MIT](LICENSE) © 2026 LimaRios.dev
+[MIT](LICENSE) © 2026 Matheus de Lima Rios
 
 ---
 
