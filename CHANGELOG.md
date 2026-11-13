@@ -7,6 +7,10 @@ projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Não lançado]
 
+### Dependências (trem Dependabot 13/11/2026)
+
+- `sqlalchemy` 2.1.8, `pydantic` 2.14.3, `ruff` 0.17.4; `pytest` 8.3.4 → 9.2.0 e `pytest-asyncio` 0.25.2 → 1.4.1.post1 (já em `asyncio_mode = "auto"`, sem uso do fixture `event_loop`).
+
 ### Alterado
 
 - **Python**: mínimo passa a ser 3.12 (`requires-python`, ruff/black/mypy); `.python-version` fixa **3.13**, usado pelo CI, e a imagem Docker sobe de `python:3.11-slim` para `python:3.13-slim`.
