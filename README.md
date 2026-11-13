@@ -340,7 +340,7 @@ Este projeto segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - Releases automáticas via tag `vX.Y.Z` (workflow `.github/workflows/release.yml`).
 - Mudanças notáveis em [CHANGELOG.md](CHANGELOG.md).
 
-Versão atual: **v1.1.0** — release de hardening de segurança (CVE patch + OWASP).
+Versão atual: **v1.1.1** — manutenção (Python 3.12+, deps e CI); o hardening de segurança veio na v1.1.0.
 
 ---
 
