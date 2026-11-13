@@ -2,13 +2,13 @@
 -r requirements.txt
 
 # Lint / format / types
-ruff==0.17.3
+ruff==0.17.4
 black==26.10.1
 mypy==2.4.1
 
 # Testes
-pytest==8.3.4
-pytest-asyncio==0.25.2
+pytest==9.2.0
+pytest-asyncio==1.4.1.post1
 pytest-cov==7.1.0
 httpx==0.28.1
 aiosqlite==0.22.1

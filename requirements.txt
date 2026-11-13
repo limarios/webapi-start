@@ -3,13 +3,13 @@ fastapi==0.162.0
 uvicorn[standard]==0.54.0
 
 # Banco de dados
-sqlalchemy[asyncio]==2.1.6
+sqlalchemy[asyncio]==2.1.8
 asyncpg==0.32.0
 psycopg2-binary==2.9.13
 alembic==1.20.1
 
 # Configuração e validação
-pydantic==2.14.2
+pydantic==2.14.3
 pydantic-settings==2.16.2
 email-validator==2.3.0
 
