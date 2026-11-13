@@ -28,7 +28,7 @@ class Settings(BaseSettings):
     APP_DEBUG: bool = False
     APP_HOST: str = "0.0.0.0"
     APP_PORT: int = 8000
-    APP_VERSION: str = "1.1.0"
+    APP_VERSION: str = "1.1.1"
 
     # Banco
     POSTGRES_HOST: str = "localhost"

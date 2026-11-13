@@ -7,6 +7,17 @@ projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Não lançado]
 
+### Planejado
+
+- Refresh token endpoint com rotation + reuse detection
+- Denylist de JWT via Redis (revogação imediata)
+- 2FA TOTP (RFC 6238)
+- Account lockout incremental (backoff por user_id)
+- Recovery de senha por e-mail
+- Observabilidade: OpenTelemetry + traces exportados para OTLP
+
+## [1.1.1] — 2026-11-13
+
 ### Dependências (trem Dependabot 13/11/2026)
 
 - `sqlalchemy` 2.1.8, `pydantic` 2.14.3, `ruff` 0.17.4; `pytest` 8.3.4 → 9.2.0 e `pytest-asyncio` 0.25.2 → 1.4.1.post1 (já em `asyncio_mode = "auto"`, sem uso do fixture `event_loop`).
@@ -35,15 +46,6 @@ projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **DB**: `pool_size`/`max_overflow` só são passados ao engine quando o dialeto não é SQLite (o `StaticPool` os rejeita).
 - **Auth**: `/auth/login` recebe `response: Response`, exigido pelo SlowAPI com `headers_enabled=True` para injetar `X-RateLimit-*`.
 - **Testes**: `LOGIN_RATE_LIMIT_PER_MINUTE` elevado no ambiente de teste e e-mails das fixtures trocados de `.local` (TLD reservado, recusado pelo `email-validator`) para `example.com`.
-
-### Planejado
-
-- Refresh token endpoint com rotation + reuse detection
-- Denylist de JWT via Redis (revogação imediata)
-- 2FA TOTP (RFC 6238)
-- Account lockout incremental (backoff por user_id)
-- Recovery de senha por e-mail
-- Observabilidade: OpenTelemetry + traces exportados para OTLP
 
 ## [1.1.0] — 2026-05-25
 
@@ -118,6 +120,7 @@ se estiver usando o default.
 - Documentação de governança: README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY,
   templates de issue e pull request.
 
-[Não lançado]: https://github.com/limarios/webapi-start/compare/v1.1.0...HEAD
+[Não lançado]: https://github.com/limarios/webapi-start/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/limarios/webapi-start/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/limarios/webapi-start/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/limarios/webapi-start/releases/tag/v1.0.0
