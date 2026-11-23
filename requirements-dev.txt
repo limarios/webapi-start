@@ -12,7 +12,7 @@ pytest-asyncio==1.5.0
 pytest-cov==7.1.0
 httpx==0.28.1
 aiosqlite==0.22.1
-faker==33.3.1
+faker==40.54.0
 
 # Hooks
 pre-commit==4.7.0
